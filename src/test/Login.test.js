@@ -3,11 +3,11 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
 
-describe.skip('Testes da Página de Login', () => {
+describe('Testes da Página de Login', () => {
   test('Verifica se existe o campo login, senha e botão de login', () => {
-    const { getPlaceholderText, getByText } = renderWithRouter(<App />);
-    const inputEmail = getPlaceholderText(/email/i);
-    const inputPassword = getPlaceholderText(/senha/i);
+    const { getByPlaceholderText, getByText } = renderWithRouter(<App />);
+    const inputEmail = getByPlaceholderText(/email/i);
+    const inputPassword = getByPlaceholderText(/senha/i);
     const buttonLogin = getByText(/entrar/i);
     expect(buttonLogin).toBeInTheDocument();
     expect(inputEmail).toBeInTheDocument();
@@ -16,9 +16,9 @@ describe.skip('Testes da Página de Login', () => {
 
   test('Verifica se após os valores serem passados aos inputs o botão é habilitado',
     () => {
-      const { getPlaceholderText, getByText } = renderWithRouter(<App />);
-      const inputEmail = getPlaceholderText(/email/i);
-      const inputPassword = getPlaceholderText(/senha/i);
+      const { getByPlaceholderText, getByText } = renderWithRouter(<App />);
+      const inputEmail = getByPlaceholderText(/email/i);
+      const inputPassword = getByPlaceholderText(/senha/i);
       const buttonLogin = getByText(/entrar/i);
       expect(buttonLogin).toBeDisabled();
       userEvent.type(inputEmail, 'email@email.com');
