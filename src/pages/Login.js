@@ -10,7 +10,6 @@ function Login() {
   const history = useHistory();
 
   const [isDisabled, setIsDisabled] = useState(true);
-  console.log(login.email, login.password);
 
   useEffect(() => {
     const condition = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
