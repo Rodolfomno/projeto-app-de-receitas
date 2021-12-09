@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import fetchAPI from '../utils/fetchAPI';
 
 function Header(props) {
   const { pageTitle } = props;
@@ -13,14 +14,24 @@ function Header(props) {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     let filteredURL = '';
-    const BASE_API_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
+    let response = '';
+    const BASE_API_URL = `https://www.the${pageTitle === 'Comidas' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/search.php?`;
     const selectedFilter = document.querySelector('input[name="search-filter"]:checked');
     const inputValue = document.querySelector('input[name="search-input"]').value;
 
     if (selectedFilter.value === 'Ingrediente') {
-      filteredURL = `${BASE_API_URL}i=${inputValue}`;
+      filteredURL = `https://www.the${pageTitle === 'Comidas' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/filter.php?i=${inputValue}`;
+    } else if (selectedFilter.value === 'Nome') {
+      filteredURL = `${BASE_API_URL}s=${inputValue}`;
+    } else if (selectedFilter.value === 'Primeira letra') {
+      if (inputValue.length > 1) {
+        return global.alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      filteredURL = `${BASE_API_URL}f=${inputValue}`;
     }
-    console.log(filteredURL);
+    response = fetchAPI(filteredURL);
+    console.log(Object.values(response));
+    return response;
   };
 
   return (
