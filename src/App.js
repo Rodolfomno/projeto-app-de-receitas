@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
+
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
@@ -21,6 +22,7 @@ function App() {
   return (
     <div>
       <Switch>
+
         <Route exact path="/" component={ Login } />
 
         <Route path="/comidas" component={ Comidas } />
