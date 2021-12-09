@@ -66,3 +66,13 @@
     transform: rotate(-10deg);
   }
 }
+
+.foodContainer, .bebidasContainer, .explorarContainer {
+  height: 100vh;
+  width: 100vw;
+}
+
+.footer {
+  bottom: 0;
+  position: fixed;
+}
