@@ -836,13 +836,13 @@ Todas as [rotas](#rotas) serão verificadas. Os ícones podem ser encontrados em
 
   O que será verificado:
   ```
-  - Não tem header na tela de login
-  - O header tem os ícones corretos na tela de principal de receitas de comidas
-  - O header tem os ícones corretos na tela de principal de receitas de bebidas
-  - Não tem header na tela de detalhes de uma receita de comida
-  - Não tem header na tela de detalhes de uma receita de bebida
-  - Não tem header na tela de receita em processo de comida
-  - Não tem header na tela de receita em processo de bebida
+  - Não tem header na tela de login - OK
+  - O header tem os ícones corretos na tela de principal de receitas de comidas - OK
+  - O header tem os ícones corretos na tela de principal de receitas de bebidas - OK
+  - Não tem header na tela de detalhes de uma receita de comida - OK
+  - Não tem header na tela de detalhes de uma receita de bebida - OK
+  - Não tem header na tela de receita em processo de comida - OK
+  - Não tem header na tela de receita em processo de bebida - OK
   - O header tem os ícones corretos na tela de explorar
   - O header tem os ícones corretos na tela de explorar comidas
   - O header tem os ícones corretos na tela de explorar bebidas
