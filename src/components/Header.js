@@ -1,26 +1,44 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import fetchAPI from '../utils/fetchAPI';
 
 function Header(props) {
-  const { pageTitle } = props;
+  const { objectProps } = props;
+  const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
+  const [data, setData] = useState({});
+  const history = useHistory();
+
+  const getId = () => {
+    if (data[recipeType] === null) {
+      return global.alert(
+        'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+      );
+    }
+    if (data[recipeType].length === 1) {
+      const recipeId = data[recipeType][0][idType];
+      console.log(recipeId);
+      return recipeId;
+    }
+  };
+  useEffect(() => {
+    if (Object.keys(data).length > 0) {
+      const recipeId = getId();
+      history.push(`${pagePath}/${recipeId}`);
+    }
+  }, [data]);
 
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
+  const generateURL = () => {
     let filteredURL = '';
-    let response = '';
-    const BASE_API_URL = `https://www.the${pageTitle === 'Comidas' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/search.php?`;
+    const BASE_API_URL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/search.php?`;
     const selectedFilter = document.querySelector('input[name="search-filter"]:checked');
     const inputValue = document.querySelector('input[name="search-input"]').value;
-
     if (selectedFilter.value === 'Ingrediente') {
-      filteredURL = `https://www.the${pageTitle === 'Comidas' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/filter.php?i=${inputValue}`;
+      filteredURL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/filter.php?i=${inputValue}`;
     } else if (selectedFilter.value === 'Nome') {
       filteredURL = `${BASE_API_URL}s=${inputValue}`;
     } else if (selectedFilter.value === 'Primeira letra') {
@@ -29,11 +47,16 @@ function Header(props) {
       }
       filteredURL = `${BASE_API_URL}f=${inputValue}`;
     }
-    response = fetchAPI(filteredURL);
-    console.log(Object.values(response));
-    return response;
+    return filteredURL;
   };
-
+  console.log(data);
+  const handleSearchSubmit = async () => {
+    const URL = generateURL();
+    const response = await fetchAPI(URL);
+    if (response !== undefined) {
+      setData(response);
+    }
+  };
   return (
     <header>
       <Link to="/perfil">
@@ -90,7 +113,13 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  pageTitle: PropTypes.string.isRequired,
+  objectProps: PropTypes.shape({
+    API_URL_TYPE: PropTypes.string,
+    idType: PropTypes.string,
+    pagePath: PropTypes.string,
+    pageTitle: PropTypes.string,
+    recipeType: PropTypes.string,
+  }).isRequired,
 };
 
 export default Header;
