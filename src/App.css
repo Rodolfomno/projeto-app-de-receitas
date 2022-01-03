@@ -171,29 +171,11 @@
   }
 
   .settingSectionPerfilButtons {
-    align-items: center;
-    border-radius: 5px;
-    display: flex;
-    font-family: sans-serif;
-    font-weight: 600;
-    height: 40px;
-    justify-content: center;
-    margin-top: 20px;
-    width: 170px;
     background-color: #b8bbb8;
     color: rgb(27, 26, 26);
   }
 
   .settingSectionPerfilButtonExit {
-    align-items: center;
-    border-radius: 5px;
-    display: flex;
-    font-family: sans-serif;
-    font-weight: 600;
-    height: 40px;
-    justify-content: center;
-    margin-top: 20px;
-    width: 170px;
     background-color: #f11e17;
     color: rgb(241, 236, 236);
   }
