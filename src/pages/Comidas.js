@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 function Comidas() {
   return (
-    <div className="foodContainer">
+    <div className="settingFood">
       <Header objectProps={ optionsObject.meal } />
       <Footer />
     </div>

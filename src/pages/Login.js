@@ -34,11 +34,15 @@ function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={ (e) => handleClick(e) }>
-        <div><h3>Login</h3></div>
-        <label htmlFor="email">
+    <div className="settingLogin">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossOrigin="anonymous" />
+      <form className="settingLoginForms" onSubmit={ (e) => handleClick(e) }>
+        <div className="settingLoginContainer">
+          <h3 className="settingLoginTitle">Login</h3>
+        </div>
+        <label className="settingLoginContainer" htmlFor="email">
           <input
+            className="settingLoginInputs"
             name="email"
             value={ login.email }
             onChange={ handleInputChange }
@@ -48,8 +52,9 @@ function Login() {
             required
           />
         </label>
-        <label htmlFor="password">
+        <label className="settingLoginContainer" htmlFor="password">
           <input
+            className="settingLoginInputs"
             name="password"
             value={ login.password }
             onChange={ handleInputChange }
@@ -59,8 +64,9 @@ function Login() {
             required
           />
         </label>
-        <label htmlFor="button">
+        <label className="settingLoginContainer" htmlFor="button">
           <input
+            className="settingLoginButton"
             data-testid="login-submit-btn"
             type="submit"
             required

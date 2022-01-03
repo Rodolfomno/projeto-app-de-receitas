@@ -13,5 +13,21 @@ const optionsObject = {
     recipeType: 'drinks',
     idType: 'idDrink',
   },
+  profile: {
+    pageTitle: 'Perfil',
+    pagePath: '/perfil',
+  },
+  explore: {
+    pageTitle: 'Explorar',
+    pagePath: '/explorar',
+  },
+  exploreDrinks: {
+    pageTitle: 'Explorar Bebidas',
+    pagePath: '/explorar/comidas',
+  },
+  exploreMeal: {
+    pageTitle: 'Explorar Comidas',
+    pagePath: '/explorar/bebidas',
+  },
 };
 export default optionsObject;

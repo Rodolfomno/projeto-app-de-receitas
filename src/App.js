@@ -25,13 +25,15 @@ function App() {
         <Route path="/comidas/:id" component={ Comidas } />
         <Route path="/perfil" component={ Perfil } />
         <Route exact path="/explorar" component={ Explorar } />
-        <Route path="/explorar/comidas" component={ ExplorarComidas } />
-        <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
         <Route
+          exact
           path="/explorar/comidas/:ingrediente"
           component={ ExplorarComidasIngredientes }
         />
         <Route
+          exact
           path="/explorar/bebidas/:ingrediente"
           component={ ExplorarBebidasIngredientes }
         />

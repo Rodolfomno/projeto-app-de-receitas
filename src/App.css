@@ -1,78 +1,254 @@
-.meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
-}
+@media ( max-width : 360px ), ( max-height : 600px ) {
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-}
-
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
-
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
+  .settingLogin {
+    background-image: url('images/livro-receitas.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 100px 0;
+    width: 100vw;
   }
 
-  50% {
-    transform: rotate(-5deg);
+  .settingLoginForms {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
   }
 
-  100% {
-    transform: rotate(5deg);
+  .settingLoginContainer {
+    align-self: center;
+    display: flex;
+    margin-bottom: 40px;
+  }
+
+  .settingLoginTitle {
+    color: rgb(243, 240, 240);
+    font-family: sans-serif;
+    font-size: 39px;
+    font-weight: 900;
+  }
+
+  .settingLoginInputs {
+    border: 1px solid rgb(83, 83, 83);
+    height: 35px;
+    width: 100%;
+  }
+
+  .settingLoginButton {
+    background-color: #5fcc44;
+    border-radius: 5px;
+    color: rgb(27, 26, 26);
+    font-family: sans-serif;
+    font-weight: 600;
+    height: 50px;
+    margin-top: 50px;
+    width: 170px;
+  }
+
+  .settingLoginButton:hover {
+    background-color: #4dd12c;
+    border: rgba(24, 23, 23, 0.952);
+    width: 180px;
+  }
+
+  .settingLoginButton:disabled {
+    background-color: #a5d19a;
+    color: rgba(49, 47, 47, 0.829);
+    font-family: sans-serif;
+    font-weight: 300;
+  }
+
+  .settingHeader {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settingHeaderPath {
+    align-items: center;
+    background-color: #b8bbb8;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+  }
+
+  .settingHeaderButton {
+    background-color: #b8bbb8;
+    border: none;
+    height: 30px;
+    margin: 10px;
+    width: 30px;
+  }
+
+  .settingHeaderSearch {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100vw;
+  }
+
+  .settingHeaderSearchInput {
+    width: 100vw;
+  }
+
+  .settingHeaderSearchRadios {
+    align-items: center;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100vw;
+  }
+
+  .settingHeaderSearchRadiosMarker {
+    border: none;
+    height: 15px;
+    margin-right: 5px;
+    transition: 0.3s ease-in-out;
+    width: 15px;
+  }
+
+  .settingHeaderSearchButton {
+    align-items: center;
+    background-color: #b8bbb8;
+    border-radius: 5px;
+    color: rgb(27, 26, 26);
+    display: flex;
+    font-family: sans-serif;
+    font-weight: 600;
+    height: 40px;
+    justify-content: center;
+    width: 170px;
+  }
+
+  .settingFooter {
+    background-color: #b8bbb8;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px;
+    position: fixed;
+    width: 100vw;
+  }
+
+  .settingFood, .settingDrinks, .settingExplorar {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .settingSectionPerfil {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    margin-top: 50px;
+    width: 100vw;
+  }
+
+  .settingSectionPerfilTitle {
+    font-family: sans-serif;
+    font-size: 19px;
+    font-weight: 900;
+  }
+
+  .settingSectionPerfil button {
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    font-family: sans-serif;
+    font-weight: 600;
+    height: 40px;
+    justify-content: center;
+    margin-top: 20px;
+    width: 170px;
+  }
+
+  .settingSectionPerfilButtons {
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    font-family: sans-serif;
+    font-weight: 600;
+    height: 40px;
+    justify-content: center;
+    margin-top: 20px;
+    width: 170px;
+    background-color: #b8bbb8;
+    color: rgb(27, 26, 26);
+  }
+
+  .settingSectionPerfilButtonExit {
+    align-items: center;
+    border-radius: 5px;
+    display: flex;
+    font-family: sans-serif;
+    font-weight: 600;
+    height: 40px;
+    justify-content: center;
+    margin-top: 20px;
+    width: 170px;
+    background-color: #f11e17;
+    color: rgb(241, 236, 236);
+  }
+
+  .settingExplorarContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: center;
+    margin: 25px;
+  }
+
+  .settingExplorarLinks {
+    align-items: center;
+    background-color: rgb(247, 201, 76);
+    border-radius: 5px;
+    color: rgb(27, 26, 26);
+    display: flex;
+    font-family: sans-serif;
+    font-weight: 600;
+    height: 50px;
+    justify-content: center;
+    margin-top: 50px;
+    width: 170px;
   }
 }
 
-@keyframes clink {
+@media ( min-width : 361px ), ( min-height : 601px ) {
 
-  0% {
-    transform: rotate(-10deg);
+  body {
+    cursor: pointer;
   }
 
-  50% {
-    transform: rotate(20deg);
+  .settingLogin {
+    background-size: 100% 100%;
   }
 
-  100% {
-    transform: rotate(-10deg);
+  .settingHeaderSearchButton:hover {
+    background-color: #7f817f;
+    border: rgba(24, 23, 23, 0.952);
+    width: 180px;
   }
+
+  .settingHeaderSearchRadios {
+    justify-content: space-evenly;
+  }
+
+  .settingSectionPerfil button {
+    width: 270px;
+  }
+
+  .settingSectionPerfil button:hover {
+    width: 280px;
+  }
+
 }
 
-.foodContainer, .bebidasContainer, .explorarContainer {
-  height: 100vh;
-  width: 100vw;
-}
-
-.footer {
-  bottom: 0;
-  position: fixed;
-}

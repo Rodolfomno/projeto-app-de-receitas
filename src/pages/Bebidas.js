@@ -5,10 +5,11 @@ import Footer from '../components/Footer';
 
 function Bebidas() {
   return (
-    <div className="bebidasContainer">
+    <div className="settingDrinks">
       <Header objectProps={ optionsObject.drink } />
       <Footer />
     </div>
   );
 }
+
 export default Bebidas;
