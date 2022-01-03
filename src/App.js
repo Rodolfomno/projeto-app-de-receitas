@@ -37,8 +37,8 @@ function App() {
           path="/explorar/bebidas/:ingrediente"
           component={ ExplorarBebidasIngredientes }
         />
-        <Route path="receitas-favoritas" component={ Favoritas } />
-        <Route path="receitas-feitas" component={ ReceitasFeitas } />
+        <Route exact path="/receitas-favoritas" component={ Favoritas } />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       </Switch>
     </div>
   );

@@ -5,11 +5,21 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Perfil() {
+  const emailLogin = JSON.parse(localStorage.getItem('user'));
+
   const history = useHistory();
 
-  const handleClick = () => {
+  const handleClickExit = () => {
     localStorage.clear();
     history.push('/');
+  };
+
+  const handleClickFavorites = () => {
+    history.push('/receitas-favoritas');
+  };
+
+  const handleClickrecipesMade = () => {
+    history.push('/receitas-feitas');
   };
 
   return (
@@ -17,18 +27,28 @@ function Perfil() {
       <Header objectProps={ optionsObject.profile } />
       <section className="settingSectionPerfil">
         <h4 data-testid="profile-email" className="settingSectionPerfilTitle">
-          {JSON.parse(localStorage.getItem('user')).email}
+          {emailLogin !== null && emailLogin.email}
         </h4>
-        <button type="button" data-testid="profile-done-btn">
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+          onClick={ handleClickrecipesMade }
+          className="settingSectionPerfilButtons"
+        >
           Receitas Feitas
         </button>
-        <button type="button" data-testid="profile-favorite-btn">
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          onClick={ handleClickFavorites }
+          className="settingSectionPerfilButtons"
+        >
           Receitas Favoritas
         </button>
         <button
           type="button"
           data-testid="profile-logout-btn"
-          onClick={ handleClick }
+          onClick={ handleClickExit }
           className="settingSectionPerfilButtonExit"
         >
           Sair

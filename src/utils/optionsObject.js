@@ -29,5 +29,13 @@ const optionsObject = {
     pageTitle: 'Explorar Comidas',
     pagePath: '/explorar/bebidas',
   },
+  favorites: {
+    pageTitle: 'Receitas Favoritas',
+    pagePath: '/receitas-favoritas',
+  },
+  recipesMade: {
+    pageTitle: 'Receitas Feitas',
+    pagePath: '/receitas-feitas',
+  },
 };
 export default optionsObject;
