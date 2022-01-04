@@ -14,10 +14,11 @@ import Favoritas from './pages/Favoritas';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ExplorarBebidasIngredientes from './pages/ExplorarBebidasIngredientes';
 import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
+import RecipesProvider from './context/RecipesProvider';
 
 function App() {
   return (
-    <div>
+    <RecipesProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Comidas } />
@@ -40,7 +41,7 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ Favoritas } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
       </Switch>
-    </div>
+    </RecipesProvider>
   );
 }
 export default App;
