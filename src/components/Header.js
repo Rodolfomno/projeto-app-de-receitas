@@ -7,6 +7,7 @@ import fetchAPI from '../utils/fetchAPI';
 
 function Header(props) {
   const { objectProps } = props;
+  console.log(props);
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
   const [data, setData] = useState({});
@@ -48,7 +49,6 @@ function Header(props) {
     }
     return filteredURL;
   };
-  console.log(data);
   const handleSearchSubmit = async () => {
     const URL = generateURL();
     const response = await fetchAPI(URL);

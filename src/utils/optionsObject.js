@@ -23,11 +23,23 @@ const optionsObject = {
   },
   exploreDrinks: {
     pageTitle: 'Explorar Bebidas',
-    pagePath: '/explorar/comidas',
+    pagePath: '/explorar/bebidas',
   },
   exploreMeal: {
     pageTitle: 'Explorar Comidas',
-    pagePath: '/explorar/bebidas',
+    pagePath: '/explorar/comidas',
+  },
+  exploreDrinksByIngredients: {
+    pageTitle: 'Explorar Ingredientes',
+    pagePath: '/explorar/bebidas/ingredientes',
+  },
+  exploreMealsByIngredients: {
+    pageTitle: 'Explorar Ingredientes',
+    pagePath: '/explorar/comidas/ingredientes',
+  },
+  exploreMealsByArea: {
+    pageTitle: 'Explorar Origem',
+    pagePath: '/explorar/comidas/area',
   },
   favorites: {
     pageTitle: 'Receitas Favoritas',
