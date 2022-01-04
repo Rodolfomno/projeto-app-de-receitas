@@ -29,6 +29,18 @@ const optionsObject = {
     pageTitle: 'Explorar Comidas',
     pagePath: '/explorar/comidas',
   },
+  exploreDrinksByIngredients: {
+    pageTitle: 'Explorar Ingredientes',
+    pagePath: '/explorar/bebidas/:ingrediente',
+  },
+  exploreMealsByIngredients: {
+    pageTitle: 'Explorar Ingredientes',
+    pagePath: '/explorar/comidas/:ingrediente',
+  },
+  exploreMealsByArea: {
+    pageTitle: 'Explorar Origem',
+    pagePath: '/explorar/comidas/:area',
+  },
   favorites: {
     pageTitle: 'Receitas Favoritas',
     pagePath: '/receitas-favoritas',

@@ -48,7 +48,6 @@ function Header(props) {
     }
     return filteredURL;
   };
-  console.log(data);
   const handleSearchSubmit = async () => {
     const URL = generateURL();
     const response = await fetchAPI(URL);
