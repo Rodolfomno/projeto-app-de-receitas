@@ -23,11 +23,11 @@ const optionsObject = {
   },
   exploreDrinks: {
     pageTitle: 'Explorar Bebidas',
-    pagePath: '/explorar/comidas',
+    pagePath: '/explorar/bebidas',
   },
   exploreMeal: {
     pageTitle: 'Explorar Comidas',
-    pagePath: '/explorar/bebidas',
+    pagePath: '/explorar/comidas',
   },
   favorites: {
     pageTitle: 'Receitas Favoritas',
