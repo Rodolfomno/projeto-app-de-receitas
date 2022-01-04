@@ -31,15 +31,15 @@ const optionsObject = {
   },
   exploreDrinksByIngredients: {
     pageTitle: 'Explorar Ingredientes',
-    pagePath: '/explorar/bebidas/:ingrediente',
+    pagePath: '/explorar/bebidas/ingredientes',
   },
   exploreMealsByIngredients: {
     pageTitle: 'Explorar Ingredientes',
-    pagePath: '/explorar/comidas/:ingrediente',
+    pagePath: '/explorar/comidas/ingredientes',
   },
   exploreMealsByArea: {
     pageTitle: 'Explorar Origem',
-    pagePath: '/explorar/comidas/:area',
+    pagePath: '/explorar/comidas/area',
   },
   favorites: {
     pageTitle: 'Receitas Favoritas',
