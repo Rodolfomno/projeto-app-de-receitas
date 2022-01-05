@@ -10,7 +10,7 @@ function Comidas() {
   return (
     <div className="settingFood">
       <Header objectProps={ optionsObject.meal } />
-      <Cards test={ globalData } />
+      <Cards test={ globalData } objectProps={ optionsObject.meal } />
       <Footer />
     </div>
   );

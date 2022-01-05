@@ -9,6 +9,8 @@ const optionsObject = {
     API_URL_TYPE: 'meal',
     recipeType: 'meals',
     idType: 'idMeal',
+    image: 'strMealThumb',
+    name: 'strMeal',
   },
   drink: {
     pageTitle: 'Bebidas',
@@ -16,6 +18,8 @@ const optionsObject = {
     API_URL_TYPE: 'cocktail',
     recipeType: 'drinks',
     idType: 'idDrink',
+    image: 'strDrinkThumb',
+    name: 'strDrink',
   },
   profile: {
     pageTitle: 'Perfil',

@@ -9,12 +9,12 @@ import RecipesContext from '../context/RecipesContext';
 function Header(props) {
   const { setGlobalData } = useContext(RecipesContext);
   const { objectProps } = props;
-  console.log(props);
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
   const [data, setData] = useState({});
   const history = useHistory();
   const getId = () => {
+    const inputValue = document.querySelector('input[name="search-input"]').value;
     if (data[recipeType] === null) {
       return global.alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
@@ -24,13 +24,22 @@ function Header(props) {
       const recipeId = data[recipeType][0][idType];
       return recipeId;
     }
+    if (data[recipeType].length > 1) {
+      const recipeId = inputValue;
+      return recipeId;
+    }
   };
   useEffect(() => {
-    if (Object.keys(data).length > 0) {
-      const recipeId = getId();
-      history.push(`${pagePath}/${recipeId}`);
+    const test = (data[recipeType]);
+    if (test === 'true') {
+      if (Number(Object.keys(data[recipeType]).length) > 1) {
+        history.push(`${pagePath}`);
+      }
+      if (Number(Object.keys(data[recipeType]).length) === 1) {
+        const recipeId = getId();
+        history.push(`${pagePath}/${recipeId}`);
+      }
     }
-    setGlobalData(data);
   }, [data]);
 
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
@@ -56,9 +65,10 @@ function Header(props) {
     const response = await fetchAPI(URL);
     if (response !== undefined) {
       setData(response);
+      setGlobalData(response);
     }
-    console.log(data);
   };
+
   return (
     <header className="settingHeader">
       <div className="settingHeaderPath">
