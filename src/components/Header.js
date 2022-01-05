@@ -29,6 +29,7 @@ function Header(props) {
       return recipeId;
     }
   };
+
   useEffect(() => {
     const test = (data[recipeType]);
     if (test === 'true') {
@@ -45,7 +46,7 @@ function Header(props) {
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
   const generateURL = () => {
     let filteredURL = '';
-    const BASE_API_URL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/search.php?`;
+    const BASE_API_URL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/search.php`;
     const selectedFilter = document.querySelector('input[name="search-filter"]:checked');
     const inputValue = document.querySelector('input[name="search-input"]').value;
     if (selectedFilter.value === 'Ingrediente') {
@@ -56,7 +57,7 @@ function Header(props) {
       if (inputValue.length > 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      filteredURL = `${BASE_API_URL}f=${inputValue}`;
+      filteredURL = `${BASE_API_URL}?s=${inputValue}`;
     }
     return filteredURL;
   };
