@@ -1,4 +1,8 @@
 const optionsObject = {
+  login: {
+    pageTitle: 'Login',
+    pagePath: '/',
+  },
   meal: {
     pageTitle: 'Comidas',
     pagePath: '/comidas',
