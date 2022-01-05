@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import fetchAPI from '../utils/fetchAPI';
+import RecipesContext from '../context/RecipesContext';
 
 function Header(props) {
+  const { setGlobalData } = useContext(RecipesContext);
   const { objectProps } = props;
   console.log(props);
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
   const [data, setData] = useState({});
   const history = useHistory();
-
   const getId = () => {
     if (data[recipeType] === null) {
       return global.alert(
@@ -29,6 +30,7 @@ function Header(props) {
       const recipeId = getId();
       history.push(`${pagePath}/${recipeId}`);
     }
+    setGlobalData(data);
   }, [data]);
 
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
@@ -55,6 +57,7 @@ function Header(props) {
     if (response !== undefined) {
       setData(response);
     }
+    console.log(data);
   };
   return (
     <header className="settingHeader">
