@@ -13,6 +13,7 @@ function Header(props) {
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
   const [data, setData] = useState({});
   const history = useHistory();
+
   const getId = () => {
     const inputValue = document.querySelector('input[name="search-input"]').value;
     if (data[recipeType] === null) {
@@ -52,7 +53,7 @@ function Header(props) {
     if (selectedFilter.value === 'Ingrediente') {
       filteredURL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/filter.php?i=${inputValue}`;
     } else if (selectedFilter.value === 'Nome') {
-      filteredURL = `${BASE_API_URL}s=${inputValue}`;
+      filteredURL = `${BASE_API_URL}?s=${inputValue}`;
     } else if (selectedFilter.value === 'Primeira letra') {
       if (inputValue.length > 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
@@ -61,6 +62,7 @@ function Header(props) {
     }
     return filteredURL;
   };
+
   const handleSearchSubmit = async () => {
     const URL = generateURL();
     const response = await fetchAPI(URL);
@@ -68,6 +70,7 @@ function Header(props) {
       setData(response);
       setGlobalData(response);
     }
+    await getId();
   };
 
   return (

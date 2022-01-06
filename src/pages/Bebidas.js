@@ -17,12 +17,13 @@ function Bebidas() {
     };
     requeredRecipes();
   }, [setGlobalData]);
-  return (
+  return (globalData && (
     <div className="settingDrinks">
       <Header objectProps={ optionsObject.drink } />
       <Cards test={ globalData } objectProps={ optionsObject.drink } />
       <Footer />
     </div>
+  )
   );
 }
 

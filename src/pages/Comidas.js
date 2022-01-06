@@ -18,12 +18,12 @@ function Comidas() {
     requeredRecipes();
   }, [setGlobalData]);
 
-  return (
+  return (globalData && (
     <div className="settingFood">
       <Header objectProps={ optionsObject.meal } />
       <Cards test={ globalData } objectProps={ optionsObject.meal } />
       <Footer />
-    </div>
+    </div>)
   );
 }
 export default Comidas;
