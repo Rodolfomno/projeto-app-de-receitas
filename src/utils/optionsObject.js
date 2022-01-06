@@ -40,10 +40,12 @@ const optionsObject = {
   exploreDrinksByIngredients: {
     pageTitle: 'Explorar Ingredientes',
     pagePath: '/explorar/bebidas/ingredientes',
+    recipeType: 'ingredient',
   },
   exploreMealsByIngredients: {
     pageTitle: 'Explorar Ingredientes',
     pagePath: '/explorar/comidas/ingredientes',
+    recipeType: 'ingredient',
   },
   exploreMealsByArea: {
     pageTitle: 'Explorar Origem',

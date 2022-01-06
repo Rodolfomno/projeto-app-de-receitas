@@ -8,7 +8,11 @@ export default function Cards({ test, objectProps }) {
     <ul>
       { test[recipeType] && test[recipeType].map((item, index) => (
         index < MAX_NUMBER_OF_RECEIPES && (
-          <li key={ index } data-testid={ `${index}-recipe-card` }>
+          <li
+            key={ index }
+            data-testid={ (recipeType === 'ingredient')
+              ? `${index}-ingredient-card` : `${index}-recipe-card` }
+          >
             <img
               data-testid={ `${index}-card-img` }
               width="100px"

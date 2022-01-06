@@ -14,35 +14,33 @@ function Header(props) {
   const [data, setData] = useState({});
   const history = useHistory();
 
-  const getId = () => {
+  const getId = (response) => {
     const inputValue = document.querySelector('input[name="search-input"]').value;
-    if (data[recipeType] === null || data[recipeType] === undefined) {
+    if (response[recipeType] === null || response[recipeType] === undefined) {
       return global.alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
-    if (data[recipeType].length === 1) {
-      const recipeId = data[recipeType][0][idType];
+    if (response[recipeType].length === 1) {
+      const recipeId = response[recipeType][0][idType];
       return recipeId;
     }
-    if (data[recipeType].length > 1) {
+    if (response[recipeType].length > 1) {
       const recipeId = inputValue;
       return recipeId;
     }
   };
 
-  useEffect(() => {
-    const test = (data[recipeType]);
-    if (test === 'true') {
-      if (Number(Object.keys(data[recipeType]).length) > 1) {
+/*   useEffect(() => {
+    if (data !== undefined && data[recipeType] !== undefined) {
+      if (Number(Object.keys(data[recipeType]).length) === 1) {
+        const recipeId = getId(data);
+        history.push(`${pagePath}/${recipeId}`);
+      } if (Number(Object.keys(data[recipeType]).length) > 1) {
         history.push(`${pagePath}`);
       }
-      if (Number(Object.keys(data[recipeType]).length) === 1) {
-        const recipeId = getId();
-        history.push(`${pagePath}/${recipeId}`);
-      }
     }
-  }, [data]);
+  }, [data]); */
 
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
   const generateURL = () => {
@@ -58,7 +56,7 @@ function Header(props) {
       if (inputValue.length > 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      filteredURL = `${BASE_API_URL}?s=${inputValue}`;
+      filteredURL = `${BASE_API_URL}?f=${inputValue}`;
     }
     return filteredURL;
   };
@@ -66,10 +64,17 @@ function Header(props) {
   const handleSearchSubmit = async () => {
     const URL = generateURL();
     const response = await fetchAPI(URL);
-    if (response !== undefined) {
+    if (response !== undefined && response !== null) {
+      const recipeId = getId(response);
       setData(response);
       setGlobalData(response);
-      await getId();
+      if (response && response[recipeType] && typeof response[recipeType] === 'object') {
+        if (Number(Object.keys(response[recipeType]).length) === 1) {
+          history.push(`${pagePath}/${recipeId}`);
+        } if (Number(Object.keys(response[recipeType]).length) > 1) {
+          history.push(`${pagePath}`);
+        }
+      }
     }
   };
 
