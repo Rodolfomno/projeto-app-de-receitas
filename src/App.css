@@ -232,5 +232,13 @@
     width: 280px;
   }
 
+  .settingExplorarButtons {
+    width: 270px;
+  }
+
+  .settingExplorarButtons:hover {
+    width: 280px;
+  }
+
 }
 

@@ -11,15 +11,15 @@ function Perfil() {
 
   const handleClickExit = () => {
     localStorage.clear();
-    history.push('/');
+    history.push(optionsObject.login.pagePath);
   };
 
   const handleClickFavorites = () => {
-    history.push('/receitas-favoritas');
+    history.push(optionsObject.favorites.pagePath);
   };
 
   const handleClickrecipesMade = () => {
-    history.push('/receitas-feitas');
+    history.push(optionsObject.recipesMade.pagePath);
   };
 
   return (

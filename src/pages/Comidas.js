@@ -1,18 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import optionsObject from '../utils/optionsObject';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 import Cards from '../components/Cards';
+import fetchAPI from '../utils/fetchAPI';
 
 function Comidas() {
-  const { globalData } = useContext(RecipesContext);
-  return (
+  const { globalData, setGlobalData } = useContext(RecipesContext);
+
+  useEffect(() => {
+    let initialRecipes = '';
+    const requeredRecipes = async () => {
+      initialRecipes = await fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      setGlobalData(initialRecipes);
+    };
+    requeredRecipes();
+  }, [setGlobalData]);
+
+  return (globalData && (
     <div className="settingFood">
       <Header objectProps={ optionsObject.meal } />
-      <Cards test={ globalData } />
+      <Cards test={ globalData } objectProps={ optionsObject.meal } />
       <Footer />
-    </div>
+    </div>)
   );
 }
 export default Comidas;

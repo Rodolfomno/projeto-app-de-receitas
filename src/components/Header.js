@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -9,56 +9,64 @@ import RecipesContext from '../context/RecipesContext';
 function Header(props) {
   const { setGlobalData } = useContext(RecipesContext);
   const { objectProps } = props;
-  console.log(props);
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
-  const [data, setData] = useState({});
+  const [setData] = useState({});
   const history = useHistory();
-  const getId = () => {
-    if (data[recipeType] === null) {
+
+  const getId = (response) => {
+    const inputValue = document.querySelector('input[name="search-input"]').value;
+    if (response[recipeType] === null || response[recipeType] === undefined) {
       return global.alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
     }
-    if (data[recipeType].length === 1) {
-      const recipeId = data[recipeType][0][idType];
+    if (response[recipeType].length === 1) {
+      const recipeId = response[recipeType][0][idType];
+      return recipeId;
+    }
+    if (response[recipeType].length > 1) {
+      const recipeId = inputValue;
       return recipeId;
     }
   };
-  useEffect(() => {
-    if (Object.keys(data).length > 0) {
-      const recipeId = getId();
-      history.push(`${pagePath}/${recipeId}`);
-    }
-    setGlobalData(data);
-  }, [data]);
 
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
   const generateURL = () => {
     let filteredURL = '';
-    const BASE_API_URL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/search.php?`;
+    const BASE_API_URL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/search.php`;
     const selectedFilter = document.querySelector('input[name="search-filter"]:checked');
     const inputValue = document.querySelector('input[name="search-input"]').value;
     if (selectedFilter.value === 'Ingrediente') {
       filteredURL = `https://www.the${API_URL_TYPE}db.com/api/json/v1/1/filter.php?i=${inputValue}`;
     } else if (selectedFilter.value === 'Nome') {
-      filteredURL = `${BASE_API_URL}s=${inputValue}`;
+      filteredURL = `${BASE_API_URL}?s=${inputValue}`;
     } else if (selectedFilter.value === 'Primeira letra') {
       if (inputValue.length > 1) {
         return global.alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      filteredURL = `${BASE_API_URL}f=${inputValue}`;
+      filteredURL = `${BASE_API_URL}?f=${inputValue}`;
     }
     return filteredURL;
   };
+
   const handleSearchSubmit = async () => {
     const URL = generateURL();
     const response = await fetchAPI(URL);
-    if (response !== undefined) {
+    if (response !== undefined && response !== null) {
+      const recipeId = getId(response);
       setData(response);
+      setGlobalData(response);
+      if (response && response[recipeType] && typeof response[recipeType] === 'object') {
+        if (Number(Object.keys(response[recipeType]).length) === 1) {
+          history.push(`${pagePath}/${recipeId}`);
+        } if (Number(Object.keys(response[recipeType]).length) > 1) {
+          history.push(`${pagePath}`);
+        }
+      }
     }
-    console.log(data);
   };
+
   return (
     <header className="settingHeader">
       <div className="settingHeaderPath">

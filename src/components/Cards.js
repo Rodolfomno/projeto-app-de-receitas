@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Cards({ test }) {
-  console.log(test);
-  const magic = 12;
+export default function Cards({ test, objectProps }) {
+  const MAX_NUMBER_OF_RECEIPES = 12;
+  const { recipeType, image, name } = objectProps;
   return (
     <ul>
-      { test.meals && test.meals.map((item, index) => (
-        index < magic && (
-          <li key={ index }>
-            <img src={ item.strMealThumb } alt={ item.strMeal } />
-            {item.strMeal}
+      { test[recipeType] && test[recipeType].map((item, index) => (
+        index < MAX_NUMBER_OF_RECEIPES && (
+          <li
+            key={ index }
+            data-testid={ (recipeType === 'ingredient')
+              ? `${index}-ingredient-card` : `${index}-recipe-card` }
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              width="100px"
+              src={ item[image] }
+              alt={ item[name] }
+            />
+            <p data-testid={ `${index}-card-name` }>{item[name]}</p>
           </li>
         )
       ))}
@@ -19,8 +28,16 @@ export default function Cards({ test }) {
 }
 
 Cards.propTypes = {
+  objectProps: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    recipeType: PropTypes.string,
+  }).isRequired,
   test: PropTypes.shape({
     meals: PropTypes.shape({
+      map: PropTypes.func,
+    }),
+    drinks: PropTypes.shape({
       map: PropTypes.func,
     }),
   }).isRequired,
