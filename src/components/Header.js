@@ -16,7 +16,7 @@ function Header(props) {
 
   const getId = () => {
     const inputValue = document.querySelector('input[name="search-input"]').value;
-    if (data[recipeType] === null) {
+    if (data[recipeType] === null || data[recipeType] === undefined) {
       return global.alert(
         'Sinto muito, não encontramos nenhuma receita para esses filtros.',
       );
@@ -69,8 +69,8 @@ function Header(props) {
     if (response !== undefined) {
       setData(response);
       setGlobalData(response);
+      await getId();
     }
-    await getId();
   };
 
   return (
