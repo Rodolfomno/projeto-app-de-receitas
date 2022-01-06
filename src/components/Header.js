@@ -11,7 +11,7 @@ function Header(props) {
   const { objectProps } = props;
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
-  const [data, setData] = useState({});
+  const [setData] = useState({});
   const history = useHistory();
 
   const getId = (response) => {
@@ -30,17 +30,6 @@ function Header(props) {
       return recipeId;
     }
   };
-
-/*   useEffect(() => {
-    if (data !== undefined && data[recipeType] !== undefined) {
-      if (Number(Object.keys(data[recipeType]).length) === 1) {
-        const recipeId = getId(data);
-        history.push(`${pagePath}/${recipeId}`);
-      } if (Number(Object.keys(data[recipeType]).length) > 1) {
-        history.push(`${pagePath}`);
-      }
-    }
-  }, [data]); */
 
   const handleSearchClick = () => { setIsHiddenSearch(!isHiddenSearch); };
   const generateURL = () => {
