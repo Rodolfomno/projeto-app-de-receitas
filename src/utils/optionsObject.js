@@ -11,6 +11,7 @@ const optionsObject = {
     idType: 'idMeal',
     image: 'strMealThumb',
     name: 'strMeal',
+    category: 'strCategory',
   },
   drink: {
     pageTitle: 'Bebidas',
@@ -20,6 +21,7 @@ const optionsObject = {
     idType: 'idDrink',
     image: 'strDrinkThumb',
     name: 'strDrink',
+    category: 'strCategory',
   },
   profile: {
     pageTitle: 'Perfil',

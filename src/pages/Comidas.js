@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 import Cards from '../components/Cards';
 import fetchAPI from '../utils/fetchAPI';
+import Categories from '../components/Categories';
 
 function Comidas() {
   const { globalData, setGlobalData } = useContext(RecipesContext);
@@ -21,6 +22,7 @@ function Comidas() {
   return (globalData && (
     <div className="settingFood">
       <Header objectProps={ optionsObject.meal } />
+      <Categories objectProps={ optionsObject.meal } />
       <Cards test={ globalData } objectProps={ optionsObject.meal } />
       <Footer />
     </div>)
