@@ -9,6 +9,8 @@ function RecipesProvider({ children }) {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [filterCategories, setFilterCategories] = useState('');
 
+  /*   const [filterByCategories, setFilterByCategories] = useState({}); */
+
   useEffect(() => {
     async function getCategories() {
       const { drinks } = await fetchAPI('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
@@ -26,6 +28,9 @@ function RecipesProvider({ children }) {
     mealsCategories,
     filterCategories,
     setFilterCategories,
+
+    /*     filterByCategories,
+    setFilterByCategories, */
   };
 
   return (
