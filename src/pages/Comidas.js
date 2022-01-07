@@ -9,15 +9,20 @@ import Categories from '../components/Categories';
 
 function Comidas() {
   const { globalData, setGlobalData } = useContext(RecipesContext);
+  const { filterCategories } = useContext(RecipesContext);
 
   useEffect(() => {
     let initialRecipes = '';
-    const requeredRecipes = async () => {
-      initialRecipes = await fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const requeredRecipes = async (URL) => {
+      initialRecipes = await fetchAPI(URL);
       setGlobalData(initialRecipes);
     };
-    requeredRecipes();
-  }, [setGlobalData]);
+    if (filterCategories === undefined || filterCategories === '') {
+      requeredRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    } else {
+      requeredRecipes(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filterCategories}`);
+    }
+  }, [setGlobalData, filterCategories]);
 
   return (globalData && (
     <div className="settingFood">

@@ -19,15 +19,24 @@ export default function Categories({ objectProps }) {
   };
 
   return (
-    categories.slice(0, MAX_NUMBER_OF_CATEGORIES).map((meal) => (
+    <>
       <button
         type="button"
-        key={ meal.strCategory }
-        data-testid={ `${meal.strCategory}-category-filter` }
-        onClick={ () => handleClickCategories(meal.strCategory) }
+        data-testid="All-category-filter"
+        onClick={ () => handleClickCategories('') }
       >
-        {meal.strCategory}
-      </button>))
+        All
+      </button>
+      {categories.slice(0, MAX_NUMBER_OF_CATEGORIES).map((meal) => (
+        <button
+          type="button"
+          key={ meal.strCategory }
+          data-testid={ `${meal.strCategory}-category-filter` }
+          onClick={ () => handleClickCategories(meal.strCategory) }
+        >
+          {meal.strCategory}
+        </button>))}
+    </>
 
   );
 }
