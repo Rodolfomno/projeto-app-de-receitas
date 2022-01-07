@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 import Cards from '../components/Cards';
 import fetchAPI from '../utils/fetchAPI';
+import Categories from '../components/Categories';
 
 function Bebidas() {
   const { globalData, setGlobalData } = useContext(RecipesContext);
@@ -17,9 +18,11 @@ function Bebidas() {
     };
     requeredRecipes();
   }, [setGlobalData]);
+
   return (globalData && (
     <div className="settingDrinks">
       <Header objectProps={ optionsObject.drink } />
+      <Categories objectProps={ optionsObject.drink } />
       <Cards test={ globalData } objectProps={ optionsObject.drink } />
       <Footer />
     </div>
