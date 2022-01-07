@@ -6,7 +6,6 @@ export default function Cards({ test, objectProps }) {
   const MAX_NUMBER_OF_RECEIPES = 12;
   const { recipeType, image, name, idType, pagePath } = objectProps;
 
-  console.log(test);
   return (
     <section>
       { test[recipeType] && test[recipeType].map((item, index) => (
