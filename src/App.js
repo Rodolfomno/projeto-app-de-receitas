@@ -42,6 +42,7 @@ function App() {
         />
         <Route exact path="/receitas-favoritas" component={ Favoritas } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+        {/* <Route exact path="/explorar/comidas/:area" component={ ExplorarArea } /> */}
       </Switch>
     </RecipesProvider>
   );

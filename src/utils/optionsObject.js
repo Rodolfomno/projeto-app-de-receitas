@@ -42,12 +42,12 @@ const optionsObject = {
   exploreDrinksByIngredients: {
     pageTitle: 'Explorar Ingredientes',
     pagePath: '/explorar/bebidas/ingredientes',
-    recipeType: 'ingredient',
+    recipeType: 'drinks',
   },
   exploreMealsByIngredients: {
     pageTitle: 'Explorar Ingredientes',
     pagePath: '/explorar/comidas/ingredientes',
-    recipeType: 'ingredient',
+    recipeType: 'meals',
   },
   exploreMealsByArea: {
     pageTitle: 'Explorar Origem',
