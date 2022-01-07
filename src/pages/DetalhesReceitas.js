@@ -37,14 +37,14 @@ function DetalhesReceitas(props) {
                 <button type="button" data-testid="share-btn">Compartilhar</button>
                 <button type="button" data-testid="favorite-btn">Favoritar</button>
                 <h4 data-testid="recipe-category">{response[recipeType][0][category]}</h4>
-                {console.log(response[recipeType].reduce((acc, curr) => {
+                {/*                {console.log(response[recipeType].reduce((acc, curr) => {
                   console.log(typeof curr, 'curr');
                   curr.forEach((element) => {
                     console.log(element, 'element');
                     if (element.includes('strIngredient')) acc.push(element);
                   });
                   return acc;
-                }, []))}
+                }, []))} */}
                 {/* {response[recipeType].filter((item) => item.includes('strIngredient') && item)
                   .map((ingredient, index) => (
                     <p
@@ -55,7 +55,8 @@ function DetalhesReceitas(props) {
                     </p>))} */}
                 <button type="button" data-testid="start-recipe-btn">Iniciar</button>
                 {/*                 <div data-testid={ `${index}-recomendation-card` }>Receita</div>
-                <video src={ response[recipeType][0][strVideo] } data-testid="instructions" /> */}
+                <video src={ response[recipeType][0][strVideo] }
+                data-testid="instructions" /> */}
               </div>
             )}
     </section>
