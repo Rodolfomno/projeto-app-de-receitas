@@ -78,7 +78,7 @@ function DetalhesReceitas(props) {
                     src={ video }
                     title="YouTube Video"
                   />
-                  )}
+                )}
                 {/*                 <div data-testid={ `${index}-recomendation-card` }>Receita</div>
                  */}
                 <button type="button" data-testid="start-recipe-btn">Iniciar</button>
