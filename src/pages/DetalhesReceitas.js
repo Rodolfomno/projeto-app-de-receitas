@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import fetchAPI from '../utils/fetchAPI';
@@ -18,6 +17,8 @@ function DetalhesReceitas(props) {
   useEffect(() => {
     async function requestDetailReceipes() {
       const dataDetails = await fetchAPI(`https://www.the${API_URL_TYPE}db.com/api/json/v1/1/lookup.php?i=${id}`);
+      const INITIAL_LINK = 24;
+      const END_LINK = 32;
       setResponse(dataDetails);
       if (dataDetails[recipeType]) {
         const allDataOfReceipe = (dataDetails[recipeType][0]);
@@ -30,10 +31,12 @@ function DetalhesReceitas(props) {
         const videos = String(Object.keys(allDataOfReceipe).map(
           (item) => item.includes('strYoutube') && allDataOfReceipe[item],
         ).filter((item) => (item !== '' && item !== false) && item));
+        const settingvideos = (
+          `${videos.substring(0, INITIAL_LINK)}embed/${videos.substring(END_LINK)}`);
         setIngredients(allIngredientes);
         setInstruction(instructions);
-        setVideo(videos);
-        console.log(allDataOfReceipe);
+        setVideo(settingvideos);
+        console.log(settingvideos);
       }
     }
     requestDetailReceipes();
@@ -69,10 +72,13 @@ function DetalhesReceitas(props) {
                     {instruction}
                   </p>)}
                 {video && (
-                  <video data-testid="video" controls>
-                    <source src={ video } type="video/webm" />
-                    <track src={ video } kind="captions" srcLang="en" default />
-                  </video>)}
+                  <iframe
+                    data-testid="video"
+                    width="300"
+                    src={ video }
+                    title="YouTube Video"
+                  />
+                  )}
                 {/*                 <div data-testid={ `${index}-recomendation-card` }>Receita</div>
                  */}
                 <button type="button" data-testid="start-recipe-btn">Iniciar</button>

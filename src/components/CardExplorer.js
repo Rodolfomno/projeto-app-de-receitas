@@ -6,10 +6,7 @@ export default function CardExplorer({ test, objectProps }) {
   const MAX_NUMBER_OF_INGREDIENTS = 12;
   const { recipeType, name } = objectProps;
 
-  console.log('test', test);
-
   return (
-
     <ul>
       { test[recipeType]
         && test[recipeType].map((item, index) => (

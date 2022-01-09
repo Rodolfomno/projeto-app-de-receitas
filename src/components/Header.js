@@ -73,15 +73,16 @@ function Header(props) {
           <img data-testid="profile-top-btn" src={ profileIcon } alt="Perfil" />
         </Link>
         <h1 data-testid="page-title">{ pageTitle }</h1>
-        <button
-          className="settingHeaderButton"
-          type="button"
-          onClick={ handleSearchClick }
-        >
-          <img data-testid="search-top-btn" src={ searchIcon } alt="Buscar" />
-        </button>
+        {(pageTitle === 'Comidas' || pageTitle === 'Bebidas'
+        || pageTitle === 'Explorar Origem') && (
+          <button
+            className="settingHeaderButton"
+            type="button"
+            onClick={ handleSearchClick }
+          >
+            <img data-testid="search-top-btn" src={ searchIcon } alt="Buscar" />
+          </button>)}
       </div>
-
       { !isHiddenSearch && (
         <div className="settingHeaderSearch">
           <input
