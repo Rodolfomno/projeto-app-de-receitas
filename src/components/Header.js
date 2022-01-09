@@ -7,11 +7,10 @@ import fetchAPI from '../utils/fetchAPI';
 import RecipesContext from '../context/RecipesContext';
 
 function Header(props) {
-  const { setGlobalData } = useContext(RecipesContext);
+  const { setGlobalData, setData } = useContext(RecipesContext);
   const { objectProps } = props;
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
-  const [setData] = useState({});
   const history = useHistory();
 
   const getId = (response) => {

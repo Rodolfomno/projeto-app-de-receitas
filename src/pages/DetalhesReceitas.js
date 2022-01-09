@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import fetchAPI from '../utils/fetchAPI';
@@ -8,16 +9,32 @@ function DetalhesReceitas(props) {
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const [response, setResponse] = useState({});
-  /*   const [receipe, setReceipes] = useState(''); */
-  /*   const lastIndex = -1; */
+  const [ingredients, setIngredients] = useState('');
+  const [instruction, setInstruction] = useState('');
+  const [video, setVideo] = useState('');
 
   const { image, API_URL_TYPE, recipeType, name, category } = optionsObject[receipes];
 
   useEffect(() => {
     async function requestDetailReceipes() {
-      /*       setReceipes(typeOfReceipes === 'meal' ? 'meals' : 'drinks'); */
       const dataDetails = await fetchAPI(`https://www.the${API_URL_TYPE}db.com/api/json/v1/1/lookup.php?i=${id}`);
       setResponse(dataDetails);
+      if (dataDetails[recipeType]) {
+        const allDataOfReceipe = (dataDetails[recipeType][0]);
+        const allIngredientes = (Object.keys(allDataOfReceipe).map(
+          (item) => item.includes('strIngredient') && allDataOfReceipe[item],
+        ).filter((item) => (item !== '' && item !== false) && item));
+        const instructions = (Object.keys(allDataOfReceipe).map(
+          (item) => item.includes('strIngredient') && allDataOfReceipe[item],
+        ).filter((item) => (item !== '' && item !== false) && item));
+        const videos = String(Object.keys(allDataOfReceipe).map(
+          (item) => item.includes('strYoutube') && allDataOfReceipe[item],
+        ).filter((item) => (item !== '' && item !== false) && item));
+        setIngredients(allIngredientes);
+        setInstruction(instructions);
+        setVideo(videos);
+        console.log(allDataOfReceipe);
+      }
     }
     requestDetailReceipes();
   }, []);
@@ -37,26 +54,28 @@ function DetalhesReceitas(props) {
                 <button type="button" data-testid="share-btn">Compartilhar</button>
                 <button type="button" data-testid="favorite-btn">Favoritar</button>
                 <h4 data-testid="recipe-category">{response[recipeType][0][category]}</h4>
-                {/*                {console.log(response[recipeType].reduce((acc, curr) => {
-                  console.log(typeof curr, 'curr');
-                  curr.forEach((element) => {
-                    console.log(element, 'element');
-                    if (element.includes('strIngredient')) acc.push(element);
-                  });
-                  return acc;
-                }, []))} */}
-                {/* {response[recipeType].filter((item) => item.includes('strIngredient') && item)
-                  .map((ingredient, index) => (
-                    <p
+                <ul>
+                  {ingredients && ingredients.map((itens, index) => (
+                    <li
                       data-testid={ `${index}-ingredient-name-and-measure` }
-                      key={ ingredient }
+                      key={ id }
                     >
-                      {ingredient}
-                    </p>))} */}
-                <button type="button" data-testid="start-recipe-btn">Iniciar</button>
+                      {itens}
+                    </li>
+                  ))}
+                </ul>
+                {instruction && (
+                  <p data-testid="instructions" key={ id }>
+                    {instruction}
+                  </p>)}
+                {video && (
+                  <video data-testid="video" controls>
+                    <source src={ video } type="video/webm" />
+                    <track src={ video } kind="captions" srcLang="en" default />
+                  </video>)}
                 {/*                 <div data-testid={ `${index}-recomendation-card` }>Receita</div>
-                <video src={ response[recipeType][0][strVideo] }
-                data-testid="instructions" /> */}
+                 */}
+                <button type="button" data-testid="start-recipe-btn">Iniciar</button>
               </div>
             )}
     </section>
