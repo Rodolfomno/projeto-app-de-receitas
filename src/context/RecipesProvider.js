@@ -9,13 +9,18 @@ function RecipesProvider({ children }) {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [filterCategories, setFilterCategories] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [countryList, setCountryList] = useState([]);
+  const [recipesArea, setRecipesArea] = useState([]);
+  console.log('Paises Provider', countryList);
 
   useEffect(() => {
     async function getCategories() {
       const { drinks } = await fetchAPI('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
       const { meals } = await fetchAPI('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+      const { meals: country } = await fetchAPI('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
       setDrinkCategories(drinks);
       setMealsCategories(meals);
+      setCountryList([{ strArea: 'All' }, ...country]);
     }
     getCategories();
   }, []);
@@ -29,6 +34,9 @@ function RecipesProvider({ children }) {
     setFilterCategories,
     setIngredients,
     ingredients,
+    countryList,
+    recipesArea,
+    setRecipesArea,
   };
 
   return (
