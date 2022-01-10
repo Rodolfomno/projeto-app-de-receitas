@@ -12,35 +12,41 @@ function DetalhesReceitas(props) {
   const [instruction, setInstruction] = useState('');
   const [video, setVideo] = useState('');
 
-  const { image, API_URL_TYPE, recipeType, name, category } = optionsObject[receipes];
+  const { image, API_URL_TYPE, recipeType,
+    name, category, alcoholic } = optionsObject[receipes];
+  const verifyAlcoholic = receipes === 'meal' ? category : alcoholic;
+
+  const refactoryCondition = (dataDetails) => {
+    const INITIAL_LINK = 24;
+    const END_LINK = 32;
+    const allDataOfReceipe = (dataDetails[0]);
+    const allIngredientes = (Object.keys(allDataOfReceipe).map(
+      (item) => item.includes('strIngredient') && allDataOfReceipe[item],
+    ).filter((item) => (item !== '' && item !== false) && item));
+    const instructions = (Object.keys(allDataOfReceipe).map(
+      (item) => item.includes('strInstructions') && allDataOfReceipe[item],
+    ).filter((item) => (item !== '' && item !== false) && item));
+    const videos = String(Object.keys(allDataOfReceipe).map(
+      (item) => item.includes('strYoutube') && allDataOfReceipe[item],
+    ).filter((item) => (item !== '' && item !== false) && item));
+    const settingvideos = (
+      `${videos.substring(0, INITIAL_LINK)}embed/${videos.substring(END_LINK)}`);
+    setIngredients(allIngredientes);
+    setInstruction(instructions);
+    setVideo(settingvideos);
+  };
 
   useEffect(() => {
     async function requestDetailReceipes() {
       const dataDetails = await fetchAPI(`https://www.the${API_URL_TYPE}db.com/api/json/v1/1/lookup.php?i=${id}`);
-      const INITIAL_LINK = 24;
-      const END_LINK = 32;
       setResponse(dataDetails);
       if (dataDetails[recipeType]) {
-        const allDataOfReceipe = (dataDetails[recipeType][0]);
-        const allIngredientes = (Object.keys(allDataOfReceipe).map(
-          (item) => item.includes('strIngredient') && allDataOfReceipe[item],
-        ).filter((item) => (item !== '' && item !== false) && item));
-        const instructions = (Object.keys(allDataOfReceipe).map(
-          (item) => item.includes('strInstructions') && allDataOfReceipe[item],
-        ).filter((item) => (item !== '' && item !== false) && item));
-        const videos = String(Object.keys(allDataOfReceipe).map(
-          (item) => item.includes('strYoutube') && allDataOfReceipe[item],
-        ).filter((item) => (item !== '' && item !== false) && item));
-        const settingvideos = (
-          `${videos.substring(0, INITIAL_LINK)}embed/${videos.substring(END_LINK)}`);
-        setIngredients(allIngredientes);
-        setInstruction(instructions);
-        setVideo(settingvideos);
-        console.log(settingvideos);
+        refactoryCondition(dataDetails[recipeType]);
       }
     }
     requestDetailReceipes();
   }, []);
+  console.log(verifyAlcoholic);
 
   return (
     <section>
@@ -56,7 +62,9 @@ function DetalhesReceitas(props) {
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
                 <button type="button" data-testid="share-btn">Compartilhar</button>
                 <button type="button" data-testid="favorite-btn">Favoritar</button>
-                <h4 data-testid="recipe-category">{response[recipeType][0][category]}</h4>
+                <h4 data-testid="recipe-category">
+                  {response[recipeType][0][verifyAlcoholic]}
+                </h4>
                 <ul>
                   {ingredients && ingredients.map((itens, index) => (
                     <li
@@ -64,21 +72,21 @@ function DetalhesReceitas(props) {
                       key={ id }
                     >
                       {itens}
-                    </li>
-                  ))}
+                    </li>))}
                 </ul>
-                {instruction && (
+                <div>
+                  <h4>Instructions</h4>
                   <p data-testid="instructions" key={ id }>
                     {instruction}
-                  </p>)}
-                {video && (
+                  </p>
+                </div>
+                {(video && API_URL_TYPE === 'meal') && (
                   <iframe
                     data-testid="video"
                     width="300"
                     src={ video }
                     title="YouTube Video"
-                  />
-                )}
+                  />)}
                 {/*                 <div data-testid={ `${index}-recomendation-card` }>Receita</div>
                  */}
                 <button type="button" data-testid="start-recipe-btn">Iniciar</button>

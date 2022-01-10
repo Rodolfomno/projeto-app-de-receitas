@@ -22,6 +22,7 @@ const optionsObject = {
     image: 'strDrinkThumb',
     name: 'strDrink',
     category: 'strCategory',
+    alcoholic: 'strAlcoholic',
   },
   profile: {
     pageTitle: 'Perfil',
