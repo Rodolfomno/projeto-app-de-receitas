@@ -27,7 +27,7 @@ export default function Cards({ test, objectProps, categoryAlcoholic }) {
 
   return (
     <section>
-      { test[recipeType] && test[recipeType].map((item, index) => (
+      { (test && test[recipeType]) && test[recipeType].map((item, index) => (
         index < MAX_NUMBER_OF_RECEIPES && (
           <Link
             to={ (`${pagePath}/${item[idType]}`) }

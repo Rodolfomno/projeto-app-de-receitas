@@ -11,6 +11,7 @@ function DetalhesReceitas(props) {
   const [response, setResponse] = useState({});
   const [recomendations, setRecomendations] = useState({});
   const [ingredients, setIngredients] = useState('');
+  const [allMeasures, setAllMeasures] = useState('');
   const [instruction, setInstruction] = useState('');
   const [video, setVideo] = useState('');
 
@@ -25,9 +26,13 @@ function DetalhesReceitas(props) {
   const refactoryCondition = (dataDetails) => {
     const INITIAL_LINK = 24;
     const END_LINK = 32;
-    const allDataOfReceipe = (dataDetails[0]);
+    const allDataOfReceipe = (dataDetails[recipeType][0]);
+    console.log(dataDetails);
     const allIngredientes = (Object.keys(allDataOfReceipe).map(
       (item) => item.includes('strIngredient') && allDataOfReceipe[item],
+    ).filter((item) => (item !== '' && item !== false) && item));
+    const allMeasure = (Object.keys(allDataOfReceipe).map(
+      (item) => item.includes('strMeasure') && allDataOfReceipe[item],
     ).filter((item) => (item !== '' && item !== false) && item));
     const instructions = (Object.keys(allDataOfReceipe).map(
       (item) => item.includes('strInstructions') && allDataOfReceipe[item],
@@ -40,6 +45,7 @@ function DetalhesReceitas(props) {
     setIngredients(allIngredientes);
     setInstruction(instructions);
     setVideo(settingvideos);
+    setAllMeasures(allMeasure);
   };
 
   useEffect(() => {
@@ -48,12 +54,12 @@ function DetalhesReceitas(props) {
       const dataRecomendation = await fetchAPI(`https://www.the${verifyAPIRecomendations}db.com/api/json/v1/1/search.php?s=`);
       setResponse(dataDetails);
       setRecomendations(dataRecomendation);
-      if (dataDetails[recipeType]) {
-        refactoryCondition(dataDetails[recipeType]);
+      if (dataDetails) {
+        refactoryCondition(dataDetails);
       }
     }
     requestDetailReceipes();
-  }, []);
+  }, [verifyAPIRecomendations, id]);
 
   return (
     <section>
@@ -78,7 +84,7 @@ function DetalhesReceitas(props) {
                       data-testid={ `${index}-ingredient-name-and-measure` }
                       key={ id }
                     >
-                      {itens}
+                      {`${itens} - ${allMeasures[index]}`}
                     </li>))}
                 </ul>
                 <div>
