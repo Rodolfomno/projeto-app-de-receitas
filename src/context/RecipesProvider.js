@@ -9,6 +9,7 @@ function RecipesProvider({ children }) {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [filterCategories, setFilterCategories] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     async function getCategories() {
@@ -29,6 +30,8 @@ function RecipesProvider({ children }) {
     setFilterCategories,
     setIngredients,
     ingredients,
+    setData,
+    data,
   };
 
   return (
