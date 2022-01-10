@@ -26,7 +26,7 @@ function DetalhesReceitas(props) {
           (item) => item.includes('strIngredient') && allDataOfReceipe[item],
         ).filter((item) => (item !== '' && item !== false) && item));
         const instructions = (Object.keys(allDataOfReceipe).map(
-          (item) => item.includes('strIngredient') && allDataOfReceipe[item],
+          (item) => item.includes('strInstructions') && allDataOfReceipe[item],
         ).filter((item) => (item !== '' && item !== false) && item));
         const videos = String(Object.keys(allDataOfReceipe).map(
           (item) => item.includes('strYoutube') && allDataOfReceipe[item],
