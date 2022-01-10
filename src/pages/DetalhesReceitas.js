@@ -2,12 +2,14 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import fetchAPI from '../utils/fetchAPI';
 import optionsObject from '../utils/optionsObject';
+import Cards from '../components/Cards';
 
 function DetalhesReceitas(props) {
   const { match: { params: { id }, path } } = props;
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const [response, setResponse] = useState({});
+  const [recomendations, setRecomendations] = useState({});
   const [ingredients, setIngredients] = useState('');
   const [instruction, setInstruction] = useState('');
   const [video, setVideo] = useState('');
@@ -15,6 +17,10 @@ function DetalhesReceitas(props) {
   const { image, API_URL_TYPE, recipeType,
     name, category, alcoholic } = optionsObject[receipes];
   const verifyAlcoholic = receipes === 'meal' ? category : alcoholic;
+
+  const verifyAPIRecomendations = typeOfReceipes === 'meal' ? 'cocktail' : 'meal';
+  const acessOptions = typeOfReceipes === 'meal' ? 'drink' : 'meal';
+  const verifyCategory = receipes === 'meal' ? 'strAlcoholic' : 'strCategory';
 
   const refactoryCondition = (dataDetails) => {
     const INITIAL_LINK = 24;
@@ -39,14 +45,15 @@ function DetalhesReceitas(props) {
   useEffect(() => {
     async function requestDetailReceipes() {
       const dataDetails = await fetchAPI(`https://www.the${API_URL_TYPE}db.com/api/json/v1/1/lookup.php?i=${id}`);
+      const dataRecomendation = await fetchAPI(`https://www.the${verifyAPIRecomendations}db.com/api/json/v1/1/search.php?s=`);
       setResponse(dataDetails);
+      setRecomendations(dataRecomendation);
       if (dataDetails[recipeType]) {
         refactoryCondition(dataDetails[recipeType]);
       }
     }
     requestDetailReceipes();
   }, []);
-  console.log(verifyAlcoholic);
 
   return (
     <section>
@@ -87,11 +94,14 @@ function DetalhesReceitas(props) {
                     src={ video }
                     title="YouTube Video"
                   />)}
-                {/*                 <div data-testid={ `${index}-recomendation-card` }>Receita</div>
-                 */}
-                <button type="button" data-testid="start-recipe-btn">Iniciar</button>
               </div>
             )}
+      <Cards
+        test={ recomendations }
+        objectProps={ optionsObject[acessOptions] }
+        categoryAlcoholic={ verifyCategory }
+      />
+      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
     </section>
   );
 }
