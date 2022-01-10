@@ -11,7 +11,7 @@ function RecipesProvider({ children }) {
   const [ingredients, setIngredients] = useState([]);
   const [countryList, setCountryList] = useState([]);
   const [recipesArea, setRecipesArea] = useState([]);
-  console.log('Paises Provider', countryList);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     async function getCategories() {
@@ -37,6 +37,8 @@ function RecipesProvider({ children }) {
     countryList,
     recipesArea,
     setRecipesArea,
+    setData,
+    data,
   };
 
   return (

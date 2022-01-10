@@ -7,11 +7,10 @@ import fetchAPI from '../utils/fetchAPI';
 import RecipesContext from '../context/RecipesContext';
 
 function Header(props) {
-  const { setGlobalData } = useContext(RecipesContext);
+  const { setGlobalData, setData } = useContext(RecipesContext);
   const { objectProps } = props;
   const { pageTitle, pagePath, API_URL_TYPE, recipeType, idType } = objectProps;
   const [isHiddenSearch, setIsHiddenSearch] = useState(true);
-  const [setData] = useState({});
   const history = useHistory();
 
   const getId = (response) => {
@@ -74,15 +73,16 @@ function Header(props) {
           <img data-testid="profile-top-btn" src={ profileIcon } alt="Perfil" />
         </Link>
         <h1 data-testid="page-title">{ pageTitle }</h1>
-        <button
-          className="settingHeaderButton"
-          type="button"
-          onClick={ handleSearchClick }
-        >
-          <img data-testid="search-top-btn" src={ searchIcon } alt="Buscar" />
-        </button>
+        {(pageTitle === 'Comidas' || pageTitle === 'Bebidas'
+        || pageTitle === 'Explorar Origem') && (
+          <button
+            className="settingHeaderButton"
+            type="button"
+            onClick={ handleSearchClick }
+          >
+            <img data-testid="search-top-btn" src={ searchIcon } alt="Buscar" />
+          </button>)}
       </div>
-
       { !isHiddenSearch && (
         <div className="settingHeaderSearch">
           <input
