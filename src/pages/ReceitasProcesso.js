@@ -9,9 +9,10 @@ function ReceitasProcesso(props) {
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
   const [response, setResponse] = useState({});
-  /*   const [ingredients, setIngredients] = useState('');
-  const [allMeasures, setAllMeasures] = useState(''); */
+  const [ingredients, setIngredients] = useState('');
+  const [allMeasures, setAllMeasures] = useState('');
   const [instruction, setInstruction] = useState('');
+  const [checked, setChecked] = useState([]);
 
   const { image, API_URL_TYPE, recipeType, name } = optionsObject[receipes];
 
@@ -33,7 +34,15 @@ function ReceitasProcesso(props) {
       setAllMeasures(allMeasure);
     }
     requestDetailReceipes();
-  }, [verifyAPIRecomendations, id]);
+  }, [id]);
+
+  function handleInput(e) {
+    if (checked.includes(e)) {
+      setChecked(checked.filter((itemName) => itemName !== e));
+    } else {
+      setChecked([...checked, e]);
+    }
+  }
 
   return (
     <section className="settingDetailsReceipes">
@@ -52,25 +61,28 @@ function ReceitasProcesso(props) {
                 <h4 data-testid="recipe-category">
                   {response[recipeType][0][verifyAlcoholic]}
                 </h4>
-
-                {/*                 <section>
+                <section>
                   <label htmlFor="ingredient-step">
                     {ingredients && ingredients.map((itens, index) => (
-
-                      <input
-                        data-testid={ `${index}-ingredient-step` }
-                        type="checkbox"
-                        name={ itens }
-                        value={ itens }
-                        id="ingredient-step"
-                      >
-                        {`${itens} - ${allMeasures[index]}`}
-                      </input>
-
-                   ))}
+                      <label htmlFor={ itens } key={ itens }>
+                        <input
+                          data-testid={ `${index}-ingredient-step` }
+                          type="checkbox"
+                          name={ itens }
+                          value={ checked }
+                          id={ itens }
+                          onChange={ () => handleInput(itens) }
+                        />
+                        <p
+                          className={ checked.includes(itens)
+                            ? 'settingReceipesProcessOK' : 'settingReceipesProcessNOK' }
+                        >
+                          {`${itens} - ${allMeasures[index]}`}
+                        </p>
+                      </label>
+                    ))}
                   </label>
-                </section> */}
-
+                </section>
                 <h4>Instructions</h4>
                 <p data-testid="instructions" key={ id }>
                   {instruction}
@@ -81,7 +93,6 @@ function ReceitasProcesso(props) {
         className="settingDetailsReceipesButton"
         type="button"
         data-testid="finish-recipe-btn"
-        onClick={ handleClickStartReceipe }
       >
         Finalizar Receita
       </button>

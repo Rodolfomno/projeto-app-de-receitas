@@ -265,6 +265,14 @@
     font-size: 19px;
     font-weight: 300;
   }
+
+  .settingReceipesProcessOK {
+    text-decoration: line-through;
+  }
+
+  .settingReceipesProcessNOK {
+    text-decoration: none;
+  }
 }
 
 @media ( min-width : 361px ), ( min-height : 601px ) {
