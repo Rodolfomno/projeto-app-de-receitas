@@ -13,6 +13,7 @@ function ExplorarComidas() {
 
   const handleClickExploreMealsByArea = () => {
     history.push(optionsObject.exploreMealsByArea.pagePath);
+    console.log('objeto', optionsObject.exploreMealsByArea.pagePath);
   };
 
   const handleClickExploreRandomMeal = async () => {
