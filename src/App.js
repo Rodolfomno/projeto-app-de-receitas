@@ -17,6 +17,7 @@ import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
 import ExplorarComidaArea from './pages/ExplorarComidaArea';
 import RecipesProvider from './context/RecipesProvider';
 import DetalhesReceitas from './pages/DetalhesReceitas';
+import ReceitasProcesso from './pages/ReceitasProcesso';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route path="/comidas/:id" component={ DetalhesReceitas } />
+        <Route path="/bebidas/:id/in-progress" component={ ReceitasProcesso } />
+        <Route path="/comidas/:id/in-progress" component={ ReceitasProcesso } />
         <Route path="/bebidas/:id" component={ DetalhesReceitas } />
         <Route path="/perfil" component={ Perfil } />
         <Route exact path="/explorar" component={ Explorar } />
