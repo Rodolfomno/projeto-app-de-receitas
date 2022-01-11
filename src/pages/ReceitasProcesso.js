@@ -9,8 +9,8 @@ function ReceitasProcesso(props) {
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
   const [response, setResponse] = useState({});
-  const [ingredients, setIngredients] = useState('');
-  const [allMeasures, setAllMeasures] = useState('');
+/*   const [ingredients, setIngredients] = useState('');
+  const [allMeasures, setAllMeasures] = useState(''); */
   const [instruction, setInstruction] = useState('');
 
   const { image, API_URL_TYPE, recipeType, name } = optionsObject[receipes];
