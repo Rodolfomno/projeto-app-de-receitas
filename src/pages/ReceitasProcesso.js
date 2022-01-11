@@ -14,7 +14,26 @@ function ReceitasProcesso(props) {
   const [instruction, setInstruction] = useState('');
   const [checked, setChecked] = useState([]);
 
-  const { image, API_URL_TYPE, recipeType, name } = optionsObject[receipes];
+  const { idType, image, API_URL_TYPE, recipeType, name, area,
+    category, alcoholic } = optionsObject[receipes];
+
+  function handleFavorite(returnAPI) {
+    const newRecipes = {
+      id: returnAPI[idType],
+      type: receipes,
+      category: returnAPI[category],
+      name: returnAPI[name],
+      image: returnAPI[image],
+      area: returnAPI[area],
+      alcoholicOrNot: returnAPI[alcoholic],
+    };
+
+    const getFavorite = localStorage.getItem('favoriteRecipes');
+    const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
+    localStorage.setItem(
+      'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
+    );
+  }
 
   useEffect(() => {
     async function requestDetailReceipes() {
@@ -39,9 +58,8 @@ function ReceitasProcesso(props) {
   function handleInput(e) {
     if (checked.includes(e)) {
       setChecked(checked.filter((itemName) => itemName !== e));
-    } else {
-      setChecked([...checked, e]);
     }
+    setChecked([...checked, e]);
   }
 
   return (
@@ -57,7 +75,13 @@ function ReceitasProcesso(props) {
                 />
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
                 <button type="button" data-testid="share-btn">Compartilhar</button>
-                <button type="button" data-testid="favorite-btn">Favoritar</button>
+                <button
+                  type="button"
+                  data-testid="favorite-btn"
+                  onClick={ () => handleFavorite(response[recipeType][0]) }
+                >
+                  Favoritar
+                </button>
                 <h4 data-testid="recipe-category">
                   {response[recipeType][0][verifyAlcoholic]}
                 </h4>

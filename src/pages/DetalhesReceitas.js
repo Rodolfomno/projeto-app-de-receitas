@@ -7,7 +7,6 @@ import Cards from '../components/Cards';
 
 function DetalhesReceitas(props) {
   const { match: { params: { id }, path, url } } = props;
-  console.log(url);
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';

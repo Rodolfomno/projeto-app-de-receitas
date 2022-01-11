@@ -25,6 +25,7 @@ function ExplorarBebidasIngredientes() {
       <CardExplorer
         test={ ingredients }
         objectProps={ optionsObject.exploreDrinksByIngredients }
+        object={ optionsObject.drink }
       />
     </>
   );
