@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import fetchAPI from '../utils/fetchAPI';
@@ -88,11 +89,14 @@ function DetalhesReceitas(props) {
                   />)}
               </div>
             )}
-      <Cards
-        test={ recomendations }
-        objectProps={ optionsObject[acessOptions] }
-        categoryAlcoholic={ verifyCategory }
-      />
+      <div className="settingDetailsReceipesCards">
+        <Cards
+          test={ recomendations }
+          objectProps={ optionsObject[acessOptions] }
+          categoryAlcoholic={ verifyCategory }
+        />
+      </div>
+
       <button
         className="settingDetailsReceipesButton"
         type="button"

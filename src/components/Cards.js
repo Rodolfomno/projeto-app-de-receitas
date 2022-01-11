@@ -9,10 +9,12 @@ export default function Cards({ test, objectProps, categoryAlcoholic }) {
     ? RECEIPES_MAIN_PAGES : RECEIPES_DETAILS;
   const { recipeType, image, name, idType, pagePath } = objectProps;
   const [dataTestId, setDataTestId] = useState('');
+  const [dataTestIdReceipes, setDataTestIdReceipes] = useState('');
 
   useEffect(() => {
     async function verifyTestId() {
       if (categoryAlcoholic === undefined) {
+        setDataTestIdReceipes('-card-name');
         if (recipeType === 'ingredient') {
           setDataTestId('-ingredient-card');
         } else {
@@ -20,16 +22,19 @@ export default function Cards({ test, objectProps, categoryAlcoholic }) {
         }
       } else {
         setDataTestId('-recomendation-card');
+        setDataTestIdReceipes('-recomendation-title');
       }
     }
     verifyTestId();
   }, []);
+  console.log(dataTestId);
 
   return (
     <section>
       { (test && test[recipeType]) && test[recipeType].map((item, index) => (
         index < MAX_NUMBER_OF_RECEIPES && (
           <Link
+            className="settingRecomandationLink"
             to={ (`${pagePath}/${item[idType]}`) }
             key={ index }
             data-testid={ index + dataTestId }
@@ -44,7 +49,7 @@ export default function Cards({ test, objectProps, categoryAlcoholic }) {
               <h4 data-testid="recipe-category">
                 {item[categoryAlcoholic]}
               </h4>)}
-            <p data-testid={ `${index}-card-name` }>{item[name]}</p>
+            <p data-testid={ index + dataTestIdReceipes }>{item[name]}</p>
           </Link>
         )
       ))}
