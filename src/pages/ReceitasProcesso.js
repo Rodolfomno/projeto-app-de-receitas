@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import copy from 'clipboard-copy';
 import fetchAPI from '../utils/fetchAPI';
 import optionsObject from '../utils/optionsObject';
 
@@ -74,7 +75,13 @@ function ReceitasProcesso(props) {
                   alt="Imagem Receita"
                 />
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
-                <button type="button" data-testid="share-btn">Compartilhar</button>
+                <button
+                  type="button"
+                  data-testid="share-btn"
+                  onClick={ () => copy('Link copiado!') }
+                >
+                  Compartilhar
+                </button>
                 <button
                   type="button"
                   data-testid="favorite-btn"

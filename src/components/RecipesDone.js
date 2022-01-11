@@ -1,16 +1,17 @@
-import React/* , { useState, useEffect } */ from 'react';
+import React, { useState, useEffect } from 'react';
 /* import RecipesDoneCard from './RecipesDoneCard'; */
 
 function RecipesDone() {
-/*   const [doneRecipes, setDoneRecipes] = useState([]); */
-  /*   const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]); */
-/*   useEffect(() => {
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [filteredDoneRecipes, setFilteredDoneRecipes] = useState([]);
+  useEffect(() => {
     setDoneRecipes(localStorage.getItem('doneRecipes'));
   }, []);
   const handleClickCategories = (clickedCategory) => {
     const filtered = doneRecipes.filter((item) => item.type === clickedCategory);
     setFilteredDoneRecipes(filtered);
-  }; */
+  };
+  console.log(filteredDoneRecipes);
   return (
     <>
       <div>
