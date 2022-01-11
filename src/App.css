@@ -208,6 +208,22 @@
     margin-top: 50px;
     width: 170px;
   }
+
+  .settingDetailsReceipes {
+    background-color: #b8bbb8;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 15px;
+    width: 100vw;
+  }
+
+  .settingDetailsReceipesButton {
+    bottom: 0;
+    justify-content: space-evenly;
+    position: fixed;
+    width: 80vw;
+  }
 }
 
 @media ( min-width : 361px ), ( min-height : 601px ) {
