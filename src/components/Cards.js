@@ -27,7 +27,6 @@ export default function Cards({ test, objectProps, categoryAlcoholic }) {
     }
     verifyTestId();
   }, []);
-  console.log(dataTestId);
 
   return (
     <section>
