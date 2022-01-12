@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import copy from 'clipboard-copy';
-import fetchAPI from '../utils/fetchAPI';
+
 import optionsObject from '../utils/optionsObject';
+import RecipesContext from '../context/RecipesContext';
 
 function ReceitasProcesso(props) {
   const { match: { params: { id }, path } } = props;
@@ -12,11 +13,10 @@ function ReceitasProcesso(props) {
   const { idType, image, recipeType, name, area,
     category, alcoholic } = optionsObject[receipes];
 
-  const [response, setResponse] = useState({});
-  const [ingredients, setIngredients] = useState('');
-  const [allMeasures, setAllMeasures] = useState('');
-  const [instruction, setInstruction] = useState('');
+  const { response, allMeasures, instruction, ingredients } = useContext(RecipesContext);
+
   const [checked, setChecked] = useState([]);
+  const [share, setShare] = useState('');
 
   function handleFavorite(returnAPI) {
     const newRecipes = {
@@ -35,32 +35,17 @@ function ReceitasProcesso(props) {
     );
   }
 
-  useEffect(() => {
-    async function requestDetailReceipes() {
-      const dataDetails = await fetchAPI(`https://www.the${typeOfReceipes}db.com/api/json/v1/1/lookup.php?i=${id}`);
-      setResponse(dataDetails);
-
-      const allDataOfReceipe = (dataDetails[recipeType][0]);
-      const allIngredientes = (Object.keys(allDataOfReceipe).map(
-        (item) => item.includes('strIngredient') && allDataOfReceipe[item],
-      ).filter((item) => (item !== '' && item !== false) && item));
-      const allMeasure = (Object.keys(allDataOfReceipe).map(
-        (item) => item.includes('strMeasure') && allDataOfReceipe[item],
-      ).filter((item) => (item !== '' && item !== false) && item));
-      const instructions = dataDetails[recipeType][0].strInstructions;
-      setIngredients(allIngredientes);
-      setInstruction(instructions);
-      setAllMeasures(allMeasure);
-    }
-    requestDetailReceipes();
-  }, [id]);
-
   function handleInput(e) {
     if (checked.includes(e)) {
       setChecked(checked.filter((itemName) => itemName !== e));
     } else {
       setChecked([...checked, e]);
     }
+  }
+
+  function handleShare() {
+    copy(window.location.href);
+    setShare('Link copiado!');
   }
 
   return (
@@ -78,10 +63,11 @@ function ReceitasProcesso(props) {
                 <button
                   type="button"
                   data-testid="share-btn"
-                  onClick={ () => copy('Link copiado!') }
+                  onClick={ () => handleShare() }
                 >
                   Compartilhar
                 </button>
+                {share && <p>{share}</p>}
                 <button
                   type="button"
                   data-testid="favorite-btn"
