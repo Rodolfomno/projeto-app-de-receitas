@@ -24,40 +24,37 @@ function Perfil() {
 
   return (
     <section>
-      {optionsObject && (
-        <div>
-          <Header objectProps={ optionsObject.profile } />
-          <section className="settingSectionPerfil">
-            <h4 data-testid="profile-email" className="settingSectionPerfilTitle">
-              {emailLogin !== null && emailLogin.email}
-            </h4>
-            <button
-              type="button"
-              data-testid="profile-done-btn"
-              onClick={ handleClickrecipesMade }
-              className="settingSectionPerfilButtons"
-            >
-              Receitas Feitas
-            </button>
-            <button
-              type="button"
-              data-testid="profile-favorite-btn"
-              onClick={ handleClickFavorites }
-              className="settingSectionPerfilButtons"
-            >
-              Receitas Favoritas
-            </button>
-            <button
-              type="button"
-              data-testid="profile-logout-btn"
-              onClick={ handleClickExit }
-              className="settingSectionPerfilButtonExit"
-            >
-              Sair
-            </button>
-          </section>
-          <Footer />
-        </div>)}
+      <Header objectProps={ optionsObject.profile } />
+      <section className="settingSectionPerfil">
+        <h4 data-testid="profile-email" className="settingSectionPerfilTitle">
+          {emailLogin !== null && emailLogin.email}
+        </h4>
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+          onClick={ handleClickrecipesMade }
+          className="settingSectionPerfilButtons"
+        >
+          Receitas Feitas
+        </button>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          onClick={ handleClickFavorites }
+          className="settingSectionPerfilButtons"
+        >
+          Receitas Favoritas
+        </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ handleClickExit }
+          className="settingSectionPerfilButtonExit"
+        >
+          Sair
+        </button>
+      </section>
+      <Footer />
     </section>
   );
 }
