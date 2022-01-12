@@ -15,7 +15,7 @@ function RecipesProvider({ children }) {
   const [response, setResponse] = useState({});
   const [allMeasures, setAllMeasures] = useState('');
   const [instruction, setInstruction] = useState('');
-
+  console.log('test');
   useEffect(() => {
     async function getCategories() {
       const { drinks } = await fetchAPI('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
