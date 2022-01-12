@@ -9,7 +9,7 @@ export default function CardExplorer({ test, objectProps, object }) {
 
   return (
     <ul>
-      { test[recipeType]
+      { (test && test[recipeType])
         && test[recipeType].map((item, index) => (
 
           index < MAX_NUMBER_OF_INGREDIENTS && (

@@ -9,14 +9,14 @@ function ReceitasProcesso(props) {
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
+  const { idType, image, recipeType, name, area,
+    category, alcoholic } = optionsObject[receipes];
+
   const [response, setResponse] = useState({});
   const [ingredients, setIngredients] = useState('');
   const [allMeasures, setAllMeasures] = useState('');
   const [instruction, setInstruction] = useState('');
   const [checked, setChecked] = useState([]);
-
-  const { idType, image, API_URL_TYPE, recipeType, name, area,
-    category, alcoholic } = optionsObject[receipes];
 
   function handleFavorite(returnAPI) {
     const newRecipes = {
@@ -35,10 +35,9 @@ function ReceitasProcesso(props) {
       'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
     );
   }
-
   useEffect(() => {
     async function requestDetailReceipes() {
-      const dataDetails = await fetchAPI(`https://www.the${API_URL_TYPE}db.com/api/json/v1/1/lookup.php?i=${id}`);
+      const dataDetails = await fetchAPI(`https://www.the${typeOfReceipes}db.com/api/json/v1/1/lookup.php?i=${id}`);
       setResponse(dataDetails);
 
       const allDataOfReceipe = (dataDetails[recipeType][0]);
@@ -65,7 +64,7 @@ function ReceitasProcesso(props) {
 
   return (
     <section className="settingDetailsReceipes">
-      {response[recipeType]
+      {(response && response[recipeType])
             && (
               <div>
                 <img
