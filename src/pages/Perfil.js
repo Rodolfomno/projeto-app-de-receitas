@@ -24,11 +24,10 @@ function Perfil() {
 
   return (
     <section>
-      {(optionsObject && optionsObject.profile)
-      && (
+      {optionsObject && (
         <div>
           <Header objectProps={ optionsObject.profile } />
-{/*           <section className="settingSectionPerfil">
+          <section className="settingSectionPerfil">
             <h4 data-testid="profile-email" className="settingSectionPerfilTitle">
               {emailLogin !== null && emailLogin.email}
             </h4>
@@ -56,7 +55,7 @@ function Perfil() {
             >
               Sair
             </button>
-          </section> */}
+          </section>
           <Footer />
         </div>)}
     </section>
