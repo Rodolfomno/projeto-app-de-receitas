@@ -11,9 +11,9 @@ function CardExplorerByArea({ country, object }) {
   useEffect(() => {
     const requeredByArea = async () => {
       if (country === 'All') {
-        setRecipesArea(fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?s='));
+        setRecipesArea(await fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?s='));
       } else {
-        setRecipesArea(fetchAPI(
+        setRecipesArea(await fetchAPI(
           `https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`,
         ));
       }
@@ -21,13 +21,14 @@ function CardExplorerByArea({ country, object }) {
     requeredByArea();
   }, [country, countryList, setRecipesArea]);
 
-  const MAX_NUMBER_OF_RECIPES = 12;
+  const MAX_NUMBER_OF_RECIPES = 11;
+  console.log('recipesArea', recipesArea);
   return (
     <div>
       <ul>
         { (recipesArea && recipesArea.meals) && (
           recipesArea.meals.map((item, index) => (
-            index < MAX_NUMBER_OF_RECIPES && (
+            index <= MAX_NUMBER_OF_RECIPES && (
               <Link to={ (`${pagePath}/${item[idType]}`) }>
                 <li
                   data-testid={ `${index}-recipe-card` }
