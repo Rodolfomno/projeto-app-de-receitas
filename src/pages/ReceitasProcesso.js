@@ -58,8 +58,9 @@ function ReceitasProcesso(props) {
   function handleInput(e) {
     if (checked.includes(e)) {
       setChecked(checked.filter((itemName) => itemName !== e));
+    } else {
+      setChecked([...checked, e]);
     }
-    setChecked([...checked, e]);
   }
 
   return (

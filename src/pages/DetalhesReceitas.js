@@ -18,7 +18,8 @@ function DetalhesReceitas(props) {
   const [instruction, setInstruction] = useState('');
   const [video, setVideo] = useState('');
 
-  const { image, API_URL_TYPE, recipeType, name } = optionsObject[receipes];
+  const { image, API_URL_TYPE, recipeType, name, idType, area,
+    category, alcoholic } = optionsObject[receipes];
 
   const verifyAPIRecomendations = typeOfReceipes === 'meal' ? 'cocktail' : 'meal';
   const acessOptions = typeOfReceipes === 'meal' ? 'drink' : 'meal';
