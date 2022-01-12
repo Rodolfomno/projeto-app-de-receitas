@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import fetchAPI from '../utils/fetchAPI';
 import optionsObject from '../utils/optionsObject';
 import Cards from '../components/Cards';
@@ -56,6 +57,23 @@ function DetalhesReceitas(props) {
     requestDetailReceipes();
   }, [verifyAPIRecomendations, id]);
 
+  function handleFavorite(returnAPI) {
+    const newRecipes = {
+      id: returnAPI[idType],
+      type: receipes,
+      category: returnAPI[category],
+      name: returnAPI[name],
+      image: returnAPI[image],
+      area: returnAPI[area],
+      alcoholicOrNot: returnAPI[alcoholic],
+    };
+    const getFavorite = localStorage.getItem('favoriteRecipes');
+    const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
+    localStorage.setItem(
+      'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
+    );
+  }
+
   return (
     <section className="settingDetailsReceipes">
       {response[recipeType]
@@ -68,8 +86,20 @@ function DetalhesReceitas(props) {
                   alt="Imagem Receita"
                 />
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
-                <button type="button" data-testid="share-btn">Compartilhar</button>
-                <button type="button" data-testid="favorite-btn">Favoritar</button>
+                <button
+                  type="button"
+                  data-testid="share-btn"
+                  onClick={ () => copy('Link copiado!') }
+                >
+                  Compartilhar
+                </button>
+                <button
+                  type="button"
+                  data-testid="favorite-btn"
+                  onClick={ () => handleFavorite(response[recipeType][0]) }
+                >
+                  Favoritar
+                </button>
                 <h4 data-testid="recipe-category">
                   {response[recipeType][0][verifyAlcoholic]}
                 </h4>

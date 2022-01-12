@@ -28,13 +28,13 @@ function ReceitasProcesso(props) {
       area: returnAPI[area],
       alcoholicOrNot: returnAPI[alcoholic],
     };
-
     const getFavorite = localStorage.getItem('favoriteRecipes');
     const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
     localStorage.setItem(
       'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
     );
   }
+
   useEffect(() => {
     async function requestDetailReceipes() {
       const dataDetails = await fetchAPI(`https://www.the${typeOfReceipes}db.com/api/json/v1/1/lookup.php?i=${id}`);
