@@ -8,8 +8,6 @@ export default function Categories({ objectProps }) {
   const { drinkCategories, mealsCategories,
     filterCategories, setFilterCategories } = useContext(RecipesContext);
 
-  const categories = recipeType === 'meals' ? mealsCategories : drinkCategories;
-
   const handleClickCategories = (categoryClicked) => {
     if (filterCategories === categoryClicked) {
       setFilterCategories('');
@@ -18,26 +16,31 @@ export default function Categories({ objectProps }) {
     }
   };
 
-  return (
-    <>
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => handleClickCategories('') }
-      >
-        All
-      </button>
-      {categories.slice(0, MAX_NUMBER_OF_CATEGORIES).map((meal) => (
-        <button
-          type="button"
-          key={ meal.strCategory }
-          data-testid={ `${meal.strCategory}-category-filter` }
-          onClick={ () => handleClickCategories(meal.strCategory) }
-        >
-          {meal.strCategory}
-        </button>))}
-    </>
+  const categories = (recipeType === 'meals') ? mealsCategories : drinkCategories;
 
+  return (
+    <section>
+      {categories && (
+        <div>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => handleClickCategories('') }
+          >
+            All
+          </button>
+          {categories.slice(0, MAX_NUMBER_OF_CATEGORIES).map((meal) => (
+            <button
+              type="button"
+              key={ meal.strCategory }
+              data-testid={ `${meal.strCategory}-category-filter` }
+              onClick={ () => handleClickCategories(meal.strCategory) }
+            >
+              {meal.strCategory}
+            </button>))}
+        </div>
+      )}
+    </section>
   );
 }
 

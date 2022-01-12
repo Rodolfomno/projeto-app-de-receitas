@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import CardExplorer from '../components/CardExplorer';
 import fetchAPI from '../utils/fetchAPI';
 import RecipesContext from '../context/RecipesContext';
+import Footer from '../components/Footer';
 
 function ExplorarComidasIngredientes() {
   const { ingredients, setIngredients } = useContext(RecipesContext);
@@ -20,13 +21,15 @@ function ExplorarComidasIngredientes() {
     requeredIngredients();
   }, [setIngredients]);
   return (
-    <>
+    <div className="settingComidaIngrediente">
       <Header objectProps={ optionsObject.exploreMealsByIngredients } />
       <CardExplorer
         test={ ingredients }
         objectProps={ optionsObject.exploreMealsByIngredients }
+        object={ optionsObject.meal }
       />
-    </>
+      <Footer />
+    </div>
   );
 }
 

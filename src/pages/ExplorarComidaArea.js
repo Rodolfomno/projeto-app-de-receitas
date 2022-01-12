@@ -3,13 +3,14 @@ import optionsObject from '../utils/optionsObject';
 import Header from '../components/Header';
 import CardExplorerByArea from '../components/CardExplorerByArea';
 import RecipesContext from '../context/RecipesContext';
+import Footer from '../components/Footer';
 
 function ExplorarComidaArea() {
   const { countryList } = useContext(RecipesContext);
   const [selectedCountry, setSelectedCountry] = useState('All');
   console.log('sele', selectedCountry);
   return (
-    <>
+    <div className="settingExplorarComidaArea">
       <Header objectProps={ optionsObject.exploreMealsByArea } />
       {console.log('Paises', countryList)}
       <select
@@ -32,7 +33,8 @@ function ExplorarComidaArea() {
         objectProps={ optionsObject.exploreMealsByArea }
         object={ optionsObject.meal }
       />
-    </>
+      <Footer />
+    </div>
   );
 }
 

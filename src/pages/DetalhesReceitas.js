@@ -6,7 +6,7 @@ import optionsObject from '../utils/optionsObject';
 import Cards from '../components/Cards';
 
 function DetalhesReceitas(props) {
-  const { match: { params: { id }, path } } = props;
+  const { match: { params: { id }, path, url } } = props;
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
@@ -29,7 +29,7 @@ function DetalhesReceitas(props) {
   const history = useHistory();
 
   const handleClickStartReceipe = () => {
-    history.push('');
+    history.push(`${url}/in-progress`);
   };
 
   useEffect(() => {
@@ -122,6 +122,7 @@ DetalhesReceitas.propTypes = {
     path: PropTypes.shape({
       includes: PropTypes.func,
     }),
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

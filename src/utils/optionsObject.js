@@ -12,6 +12,7 @@ const optionsObject = {
     image: 'strMealThumb',
     name: 'strMeal',
     category: 'strCategory',
+    area: 'strArea',
   },
   drink: {
     pageTitle: 'Bebidas',
@@ -23,6 +24,7 @@ const optionsObject = {
     name: 'strDrink',
     category: 'strCategory',
     alcoholic: 'strAlcoholic',
+
   },
   profile: {
     pageTitle: 'Perfil',

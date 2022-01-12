@@ -2,17 +2,18 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function CardExplorer({ test, objectProps }) {
+export default function CardExplorer({ test, objectProps, object }) {
   const MAX_NUMBER_OF_INGREDIENTS = 12;
   const { recipeType, name } = objectProps;
+  const { pagePath, idType } = object;
 
   return (
     <ul>
-      { test[recipeType]
+      { (test && test[recipeType])
         && test[recipeType].map((item, index) => (
 
           index < MAX_NUMBER_OF_INGREDIENTS && (
-            <Link to={ (recipeType === 'drinks') ? '/bebidas' : '/comidas' }>
+            <Link to={ (`${pagePath}/${item[idType]}`) }>
               <li
                 key={ index }
                 data-testid={ `${index}-ingredient-card` }
@@ -35,6 +36,10 @@ export default function CardExplorer({ test, objectProps }) {
 }
 
 CardExplorer.propTypes = {
+  object: PropTypes.shape({
+    idType: PropTypes.string,
+    pagePath: PropTypes.string,
+  }).isRequired,
   objectProps: PropTypes.shape({
     category: PropTypes.string,
     image: PropTypes.string,

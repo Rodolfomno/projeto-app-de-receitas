@@ -11,19 +11,19 @@ function Perfil() {
 
   const handleClickExit = () => {
     localStorage.clear();
-    history.push(optionsObject.login.pagePath);
+    history.push('/');
   };
 
   const handleClickFavorites = () => {
-    history.push(optionsObject.favorites.pagePath);
+    history.push('/receitas-favoritas');
   };
 
   const handleClickrecipesMade = () => {
-    history.push(optionsObject.recipesMade.pagePath);
+    history.push('/receitas-feitas');
   };
 
   return (
-    <div>
+    <section>
       <Header objectProps={ optionsObject.profile } />
       <section className="settingSectionPerfil">
         <h4 data-testid="profile-email" className="settingSectionPerfilTitle">
@@ -55,7 +55,7 @@ function Perfil() {
         </button>
       </section>
       <Footer />
-    </div>
+    </section>
   );
 }
 
