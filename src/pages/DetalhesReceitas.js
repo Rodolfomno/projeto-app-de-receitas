@@ -1,23 +1,28 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import fetchAPI from '../utils/fetchAPI';
 import optionsObject from '../utils/optionsObject';
 import Cards from '../components/Cards';
+import RecipesContext from '../context/RecipesContext';
 
 function DetalhesReceitas(props) {
   const { match: { params: { id }, path, url } } = props;
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
-  const [response, setResponse] = useState({});
-  const [recomendations, setRecomendations] = useState({});
-  const [ingredients, setIngredients] = useState('');
-  const [allMeasures, setAllMeasures] = useState('');
-  const [instruction, setInstruction] = useState('');
-  const [video, setVideo] = useState('');
 
-  const { image, API_URL_TYPE, recipeType, name } = optionsObject[receipes];
+  const { setResponse, response, allMeasures, setAllMeasures,
+    instruction, setInstruction, ingredients,
+    setIngredients } = useContext(RecipesContext);
+
+  const [recomendations, setRecomendations] = useState({});
+  const [video, setVideo] = useState('');
+  const [share, setShare] = useState('');
+
+  const { image, API_URL_TYPE, recipeType, name, idType, area,
+    category, alcoholic } = optionsObject[receipes];
 
   const verifyAPIRecomendations = typeOfReceipes === 'meal' ? 'cocktail' : 'meal';
   const acessOptions = typeOfReceipes === 'meal' ? 'drink' : 'meal';
@@ -36,8 +41,6 @@ function DetalhesReceitas(props) {
     async function requestDetailReceipes() {
       const dataDetails = await fetchAPI(`https://www.the${API_URL_TYPE}db.com/api/json/v1/1/lookup.php?i=${id}`);
       const dataRecomendation = await fetchAPI(`https://www.the${verifyAPIRecomendations}db.com/api/json/v1/1/search.php?s=`);
-      setResponse(dataDetails);
-      setRecomendations(dataRecomendation);
 
       const allDataOfReceipe = (dataDetails[recipeType][0]);
       const allIngredientes = (Object.keys(allDataOfReceipe).map(
@@ -52,9 +55,33 @@ function DetalhesReceitas(props) {
       setInstruction(instructions);
       setVideo(videos);
       setAllMeasures(allMeasure);
+      setResponse(dataDetails);
+      setRecomendations(dataRecomendation);
     }
     requestDetailReceipes();
   }, [verifyAPIRecomendations, id]);
+
+  function handleFavorite(returnAPI) {
+    const newRecipes = {
+      id: returnAPI[idType],
+      type: receipes,
+      category: returnAPI[category],
+      name: returnAPI[name],
+      image: returnAPI[image],
+      area: returnAPI[area],
+      alcoholicOrNot: returnAPI[alcoholic],
+    };
+    const getFavorite = localStorage.getItem('favoriteRecipes');
+    const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
+    localStorage.setItem(
+      'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
+    );
+  }
+
+  function handleShare() {
+    copy(window.location.href);
+    setShare('Link copiado!');
+  }
 
   return (
     <section className="settingDetailsReceipes">
@@ -68,13 +95,26 @@ function DetalhesReceitas(props) {
                   alt="Imagem Receita"
                 />
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
-                <button type="button" data-testid="share-btn">Compartilhar</button>
-                <button type="button" data-testid="favorite-btn">Favoritar</button>
+                <button
+                  type="button"
+                  data-testid="share-btn"
+                  onClick={ () => handleShare() }
+                >
+                  Compartilhar
+                </button>
+                {share && <p>{share}</p>}
+                <button
+                  type="button"
+                  data-testid="favorite-btn"
+                  onClick={ () => handleFavorite(response[recipeType][0]) }
+                >
+                  Favoritar
+                </button>
                 <h4 data-testid="recipe-category">
                   {response[recipeType][0][verifyAlcoholic]}
                 </h4>
                 <ul>
-                  {ingredients && ingredients.map((itens, index) => (
+                  {ingredients.map((itens, index) => (
                     <li
                       data-testid={ `${index}-ingredient-name-and-measure` }
                       key={ id }
@@ -86,7 +126,7 @@ function DetalhesReceitas(props) {
                 <p data-testid="instructions" key={ id }>
                   {instruction}
                 </p>
-                {(video && API_URL_TYPE === 'meal') && (
+                {(API_URL_TYPE === 'meal') && (
                   <iframe
                     data-testid="video"
                     width="300"

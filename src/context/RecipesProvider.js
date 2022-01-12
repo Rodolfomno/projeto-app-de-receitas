@@ -12,6 +12,9 @@ function RecipesProvider({ children }) {
   const [countryList, setCountryList] = useState([]);
   const [recipesArea, setRecipesArea] = useState([]);
   const [data, setData] = useState({});
+  const [response, setResponse] = useState({});
+  const [allMeasures, setAllMeasures] = useState('');
+  const [instruction, setInstruction] = useState('');
 
   useEffect(() => {
     async function getCategories() {
@@ -39,6 +42,12 @@ function RecipesProvider({ children }) {
     setRecipesArea,
     setData,
     data,
+    setResponse,
+    response,
+    setAllMeasures,
+    allMeasures,
+    setInstruction,
+    instruction,
   };
 
   return (
