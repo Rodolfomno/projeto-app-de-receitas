@@ -8,30 +8,30 @@ export default function CardExplorer({ test, objectProps, object }) {
   const { pagePath, idType } = object;
 
   return (
-    <ul>
+    <div>
       { (test && test[recipeType])
         && test[recipeType].map((item, index) => (
 
           index < MAX_NUMBER_OF_INGREDIENTS && (
-            <Link to={ (`${pagePath}/${item[idType]}`) }>
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-card` }
-              >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  width="100px"
-                  src={ (recipeType === 'drinks') ? `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` : `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-                  alt={ item[name] }
-                />
-                <p data-testid={ `${index}-card-name` }>
-                  { (recipeType === 'drinks') ? item.strIngredient1 : item.strIngredient }
-                </p>
-              </li>
+            <Link
+              to={ (`${pagePath}/${item[idType]}`) }
+              key={ index }
+              data-testid={ `${index}-ingredient-card` }
+              className="settingRecomandationLink"
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                width="100px"
+                src={ (recipeType === 'drinks') ? `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` : `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
+                alt={ item[name] }
+              />
+              <p data-testid={ `${index}-card-name` }>
+                { (recipeType === 'drinks') ? item.strIngredient1 : item.strIngredient }
+              </p>
             </Link>
           )
         ))}
-    </ul>
+    </div>
   );
 }
 
