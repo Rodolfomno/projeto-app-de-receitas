@@ -16,10 +16,9 @@ function RecipesFavorite() {
   }, [setFilteredFavoriteRecipes, setFavoriteRecipes]);
 
   const handleClickCategories = (clickedCategory) => {
-    console.log('click', clickedCategory);
     if (clickedCategory === 'all') {
       setFilteredFavoriteRecipes(favoriteRecipes);
-    } else if (clickedCategory === 'meal' || clickedCategory === 'drink') {
+    } else {
       const filtered = favoriteRecipes.filter((item) => item.type === clickedCategory);
       setFilteredFavoriteRecipes(filtered);
       console.log('click2', filtered);
@@ -33,32 +32,28 @@ function RecipesFavorite() {
   // }
 
   function handleUnfavorite(id) {
-    console.log('favorite', favoriteRecipes);
     const exclui = favoriteRecipes
       .filter((favoriteRecipe) => favoriteRecipe.id !== id);
     setFavoriteRecipes(exclui);
-    console.log('exclui', exclui);
     localStorage.setItem('favoriteRecipes', JSON.stringify(exclui));
-    console.log('favoriteExcluido', favoriteRecipes);
     const filtrado = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavoriteRecipes(filtrado);
     setFilteredFavoriteRecipes(filtrado);
   }
 
   function handleShare(e) {
-    console.log('clickComp', e.target.id);
     copy(`http://localhost:3000/comidas/${e.target.id}`);
     setShare('Link copiado!');
   }
 
   function caminhoDetalhes(item) {
-    if (item.type !== 'meal') {
+    if (item.type === 'comida') {
       history.push(`comidas/${item.id}`);
     } else {
       history.push(`bebidas/${item.id}`);
     }
   }
-  console.log('favoritos localStorage', filteredFavoriteRecipes);
+
   return (
     <>
       <div>
@@ -72,14 +67,14 @@ function RecipesFavorite() {
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={ () => handleClickCategories('meal') }
+          onClick={ () => handleClickCategories('comida') }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={ () => handleClickCategories('drink') }
+          onClick={ () => handleClickCategories('bebida') }
         >
           Drinks
         </button>
@@ -108,9 +103,6 @@ function RecipesFavorite() {
                 : `${item.area} - ${item.category}` }
             </p>
             <Link
-              // data-testid={ `${index}-horizontal-name` }
-              // type="button"
-              // onClick={ () => caminhoDetalhes(item) }
               to={ item.type === 'meal'
                 ? (`/comidas/${item.id}`) : (`/bebidas/${item.id}`) }
             >
@@ -144,7 +136,6 @@ function RecipesFavorite() {
               src={ blackHeartIcon }
             >
               <img
-                // data-testid={ `${index}-horizontal-name` }
                 src={ blackHeartIcon }
                 alt="Desfavoritar"
               />
