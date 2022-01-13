@@ -158,7 +158,7 @@ describe('Favorite recipes screen', () => {
     });
   });
 
-  describe('66 - Redirecione a pessoa usuária ao clicar na foto ou no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
+  describe.only('66 - Redirecione a pessoa usuária ao clicar na foto ou no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
     it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="0-horizontal-image"]').click();
 

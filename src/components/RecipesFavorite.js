@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -13,15 +13,16 @@ function RecipesFavorite() {
   useEffect(() => {
     setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setFilteredFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
-  }, []);
+  }, [setFilteredFavoriteRecipes, setFavoriteRecipes]);
 
   const handleClickCategories = (clickedCategory) => {
     console.log('click', clickedCategory);
     if (clickedCategory === 'all') {
       setFilteredFavoriteRecipes(favoriteRecipes);
-    } else {
+    } else if (clickedCategory === 'meal' || clickedCategory === 'drink') {
       const filtered = favoriteRecipes.filter((item) => item.type === clickedCategory);
       setFilteredFavoriteRecipes(filtered);
+      console.log('click2', filtered);
     }
   };
 
@@ -35,8 +36,13 @@ function RecipesFavorite() {
     console.log('favorite', favoriteRecipes);
     const exclui = favoriteRecipes
       .filter((favoriteRecipe) => favoriteRecipe.id !== id);
+    setFavoriteRecipes(exclui);
     console.log('exclui', exclui);
-    // localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(exclui));
+    console.log('favoriteExcluido', favoriteRecipes);
+    const filtrado = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setFavoriteRecipes(filtrado);
+    setFilteredFavoriteRecipes(filtrado);
   }
 
   function handleShare(e) {
@@ -46,7 +52,7 @@ function RecipesFavorite() {
   }
 
   function caminhoDetalhes(item) {
-    if (item.type === 'meal') {
+    if (item.type !== 'meal') {
       history.push(`comidas/${item.id}`);
     } else {
       history.push(`bebidas/${item.id}`);
@@ -101,17 +107,20 @@ function RecipesFavorite() {
                 ? `${item.alcoholicOrNot} - ${item.category}`
                 : `${item.area} - ${item.category}` }
             </p>
-            <button
-              data-testid={ `${index}-horizontal-name` }
-              type="button"
-              onClick={ () => caminhoDetalhes(item) }
+            <Link
+              // data-testid={ `${index}-horizontal-name` }
+              // type="button"
+              // onClick={ () => caminhoDetalhes(item) }
+              to={ item.type === 'meal'
+                ? (`/comidas/${item.id}`) : (`/bebidas/${item.id}`) }
             >
               <p
+                data-testid={ `${index}-horizontal-name` }
                 className="done-recipe-name"
               >
                 { item.name }
               </p>
-            </button>
+            </Link>
             <button
               type="button"
               onClick={ (e) => handleShare(e) }
@@ -119,9 +128,12 @@ function RecipesFavorite() {
               src={ shareIcon }
               id={ item.id }
             >
-              {/*
-              <img data-testid="profile-top-btn"
-              src={ shareIcon } alt="Compartilhar" /> */}
+
+              <img
+                data-testid="profile-top-btn"
+                src={ shareIcon }
+                alt="Compartilhar"
+              />
               Compartilhar
             </button>
             {share && <p>{share}</p>}
@@ -132,7 +144,7 @@ function RecipesFavorite() {
               src={ blackHeartIcon }
             >
               <img
-                data-testid="profile-top-btn"
+                // data-testid={ `${index}-horizontal-name` }
                 src={ blackHeartIcon }
                 alt="Desfavoritar"
               />
