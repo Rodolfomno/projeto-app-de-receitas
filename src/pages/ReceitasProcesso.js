@@ -1,39 +1,20 @@
 import PropTypes from 'prop-types';
 import React, { useState, useContext } from 'react';
-import copy from 'clipboard-copy';
 
 import optionsObject from '../utils/optionsObject';
 import RecipesContext from '../context/RecipesContext';
+import ShareButton from '../components/ShareButton';
 
 function ReceitasProcesso(props) {
   const { match: { params: { id }, path } } = props;
   const typeOfReceipes = path.includes('comidas') ? 'meal' : 'cocktail';
   const receipes = typeOfReceipes === 'meal' ? 'meal' : 'drink';
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
-  const { idType, image, recipeType, name, area,
-    category, alcoholic } = optionsObject[receipes];
+  const { image, recipeType, name } = optionsObject[receipes];
 
   const { response, allMeasures, instruction, ingredients } = useContext(RecipesContext);
 
   const [checked, setChecked] = useState([]);
-  const [share, setShare] = useState('');
-
-  function handleFavorite(returnAPI) {
-    const newRecipes = {
-      id: returnAPI[idType],
-      type: receipes,
-      category: returnAPI[category],
-      name: returnAPI[name],
-      image: returnAPI[image],
-      area: returnAPI[area],
-      alcoholicOrNot: returnAPI[alcoholic],
-    };
-    const getFavorite = localStorage.getItem('favoriteRecipes');
-    const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
-    localStorage.setItem(
-      'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
-    );
-  }
 
   function handleInput(e) {
     if (checked.includes(e)) {
@@ -41,11 +22,6 @@ function ReceitasProcesso(props) {
     } else {
       setChecked([...checked, e]);
     }
-  }
-
-  function handleShare() {
-    copy(window.location.href);
-    setShare('Link copiado!');
   }
 
   return (
@@ -60,21 +36,7 @@ function ReceitasProcesso(props) {
                   alt="Imagem Receita"
                 />
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
-                <button
-                  type="button"
-                  data-testid="share-btn"
-                  onClick={ () => handleShare() }
-                >
-                  Compartilhar
-                </button>
-                {share && <p>{share}</p>}
-                <button
-                  type="button"
-                  data-testid="favorite-btn"
-                  onClick={ () => handleFavorite(response[recipeType][0]) }
-                >
-                  Favoritar
-                </button>
+                <ShareButton id={ id } />
                 <h4 data-testid="recipe-category">
                   {response[recipeType][0][verifyAlcoholic]}
                 </h4>

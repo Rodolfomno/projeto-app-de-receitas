@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import fetchAPI from '../utils/fetchAPI';
 import optionsObject from '../utils/optionsObject';
 import Cards from '../components/Cards';
 import RecipesContext from '../context/RecipesContext';
+import ShareButton from '../components/ShareButton';
 
 function DetalhesReceitas(props) {
   const { match: { params: { id }, path, url } } = props;
@@ -15,14 +15,12 @@ function DetalhesReceitas(props) {
 
   const { setResponse, response, allMeasures, setAllMeasures,
     instruction, setInstruction, ingredients,
-    setIngredients } = useContext(RecipesContext);
+    setIngredients, setReceipe, receipe } = useContext(RecipesContext);
 
   const [recomendations, setRecomendations] = useState({});
   const [video, setVideo] = useState('');
-  const [share, setShare] = useState('');
 
-  const { image, API_URL_TYPE, recipeType, name, idType, area,
-    category, alcoholic } = optionsObject[receipes];
+  const { image, API_URL_TYPE, recipeType, name } = optionsObject[receipes];
 
   const verifyAPIRecomendations = typeOfReceipes === 'meal' ? 'cocktail' : 'meal';
   const acessOptions = typeOfReceipes === 'meal' ? 'drink' : 'meal';
@@ -56,36 +54,15 @@ function DetalhesReceitas(props) {
       setVideo(videos);
       setAllMeasures(allMeasure);
       setResponse(dataDetails);
+      setReceipe(receipes);
       setRecomendations(dataRecomendation);
     }
     requestDetailReceipes();
   }, [verifyAPIRecomendations, id]);
 
-  function handleFavorite(returnAPI) {
-    const newRecipes = {
-      id: returnAPI[idType],
-      type: receipes,
-      category: returnAPI[category],
-      name: returnAPI[name],
-      image: returnAPI[image],
-      area: returnAPI[area],
-      alcoholicOrNot: returnAPI[alcoholic],
-    };
-    const getFavorite = localStorage.getItem('favoriteRecipes');
-    const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
-    localStorage.setItem(
-      'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
-    );
-  }
-
-  function handleShare() {
-    copy(window.location.href);
-    setShare('Link copiado!');
-  }
-
   return (
     <section className="settingDetailsReceipes">
-      {response[recipeType]
+      {(response[recipeType] && receipe)
             && (
               <div>
                 <img
@@ -95,21 +72,7 @@ function DetalhesReceitas(props) {
                   alt="Imagem Receita"
                 />
                 <h2 data-testid="recipe-title">{response[recipeType][0][name]}</h2>
-                <button
-                  type="button"
-                  data-testid="share-btn"
-                  onClick={ () => handleShare() }
-                >
-                  Compartilhar
-                </button>
-                {share && <p>{share}</p>}
-                <button
-                  type="button"
-                  data-testid="favorite-btn"
-                  onClick={ () => handleFavorite(response[recipeType][0]) }
-                >
-                  Favoritar
-                </button>
+                <ShareButton id={ id } />
                 <h4 data-testid="recipe-category">
                   {response[recipeType][0][verifyAlcoholic]}
                 </h4>
