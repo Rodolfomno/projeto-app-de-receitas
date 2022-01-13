@@ -25,29 +25,28 @@ function CardExplorerByArea({ country, object }) {
   console.log('recipesArea', recipesArea);
   return (
     <div>
-      <ul>
-        { (recipesArea && recipesArea.meals) && (
-          recipesArea.meals.map((item, index) => (
-            index <= MAX_NUMBER_OF_RECIPES && (
-              <Link to={ (`${pagePath}/${item[idType]}`) }>
-                <li
-                  data-testid={ `${index}-recipe-card` }
-                  key={ item.idMeal }
-                >
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    width="100px"
-                    src={ item.strMealThumb }
-                    alt={ item.strMeal }
-                  />
-                  <p data-testid={ `${index}-card-name` }>{item.strMeal }</p>
 
-                </li>
-              </Link>
-            )
+      { (recipesArea && recipesArea.meals) && (
+        recipesArea.meals.map((item, index) => (
+          index <= MAX_NUMBER_OF_RECIPES && (
+            <Link
+              className="settingRecomandationLink"
+              to={ (`${pagePath}/${item[idType]}`) }
+              data-testid={ `${index}-recipe-card` }
+              key={ item.idMeal }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                width="100px"
+                src={ item.strMealThumb }
+                alt={ item.strMeal }
+              />
+              <p data-testid={ `${index}-card-name` }>{item.strMeal }</p>
 
-          )))}
-      </ul>
+            </Link>
+          )
+
+        )))}
     </div>
 
   );
