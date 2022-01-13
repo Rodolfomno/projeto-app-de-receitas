@@ -12,8 +12,8 @@ function ReceitasProcesso(props) {
   const verifyAlcoholic = receipes === 'meal' ? 'strCategory' : 'strAlcoholic';
   const { image, recipeType, name } = optionsObject[receipes];
 
-  const { response, allMeasures, instruction, ingredients } = useContext(RecipesContext);
-
+  const { setFinish, finish, response,
+    setNewData, allMeasures, instruction, ingredients } = useContext(RecipesContext);
   const [checked, setChecked] = useState([]);
 
   function handleInput(e) {
@@ -23,7 +23,17 @@ function ReceitasProcesso(props) {
       setChecked([...checked, e]);
     }
   }
-
+  function handleClickFinish() {
+    // Referencia da data: https://www.horadecodar.com.br/2021/04/03/como-pegar-a-data-atual-com-javascript/
+    const data = new Date();
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    const dataAtual = `${dia}/${mes}/${ano}`;
+    console.log('data', dataAtual);
+    setNewData(dataAtual);
+    setFinish(finish === undefined ? 'true' : undefined);
+  }
   return (
     <section className="settingDetailsReceipes">
       {(response && response[recipeType])
@@ -72,6 +82,7 @@ function ReceitasProcesso(props) {
         className="settingDetailsReceipesButton"
         type="button"
         data-testid="finish-recipe-btn"
+        onClick={ () => handleClickFinish() }
       >
         Finalizar Receita
       </button>

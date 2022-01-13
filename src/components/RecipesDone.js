@@ -3,30 +3,30 @@ import { useHistory, Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
-const testDoneRecipes = [
-  {
-    id: '52771',
-    type: 'comida',
-    area: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'bebida',
-    area: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
+// const testDoneRecipes = [
+//   {
+//     id: '52771',
+//     type: 'comida',
+//     area: 'Italian',
+//     category: 'Vegetarian',
+//     alcoholicOrNot: '',
+//     name: 'Spicy Arrabiata Penne',
+//     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+//     doneDate: '23/06/2020',
+//     tags: ['Pasta', 'Curry'],
+//   },
+//   {
+//     id: '178319',
+//     type: 'bebida',
+//     area: '',
+//     category: 'Cocktail',
+//     alcoholicOrNot: 'Alcoholic',
+//     name: 'Aquamarine',
+//     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+//     doneDate: '23/06/2020',
+//     tags: [],
+//   },
+// ];
 
 function RecipesDoneCard() {
   const history = useHistory();
@@ -35,10 +35,10 @@ function RecipesDoneCard() {
   const [share, setShare] = useState('');
 
   useEffect(() => {
-    // setDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
-    // setFilteredDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
-    setDoneRecipes(testDoneRecipes);
-    setFilteredDoneRecipes(testDoneRecipes);
+    setDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+    setFilteredDoneRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+    // setDoneRecipes(testDoneRecipes);
+    // setFilteredDoneRecipes(testDoneRecipes);
   }, [setFilteredDoneRecipes, setDoneRecipes]);
 
   const handleClickCategories = (clickedCategory) => {
