@@ -35,26 +35,26 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     if (receipe) {
       const { idType, image, name, area, category,
-        alcoholic, recipeType } = optionsObject[receipe];
+        alcoholic, recipeType, type } = optionsObject[receipe];
       const returnData = response[recipeType][0];
+      const testAlcoholicOrNot = type === 'comida' ? '' : returnData[alcoholic];
+      const testArea = type === 'comida' ? returnData[area] : '';
+      const getFavorite = localStorage.getItem('favoriteRecipes');
+      const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
       if (favorite === undefined) {
         const newRecipes = {
           id: returnData[idType],
-          type: receipe === 'drink' ? 'bebida' : 'comida',
+          type,
           category: returnData[category],
-          alcoholicOrNot: returnData[alcoholic],
+          alcoholicOrNot: testAlcoholicOrNot,
           name: returnData[name],
           image: returnData[image],
-          area: returnData[area],
+          area: testArea,
         };
-        const getFavorite = localStorage.getItem('favoriteRecipes');
-        const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
         localStorage.setItem(
           'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
         );
       } else {
-        const getFavorite = localStorage.getItem('favoriteRecipes');
-        const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
         const local = favoritesReceipes.filter((item) => item.id !== returnData[idType]);
         localStorage.setItem('favoriteRecipes', JSON.stringify(local));
       }
