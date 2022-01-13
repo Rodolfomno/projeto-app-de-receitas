@@ -9,7 +9,7 @@ function RecipesFavorite() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [filteredFavoriteRecipes, setFilteredFavoriteRecipes] = useState([]);
   const [share, setShare] = useState('');
-
+  console.log('localstro', favoriteRecipes);
   useEffect(() => {
     setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
     setFilteredFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));

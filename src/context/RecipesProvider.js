@@ -19,6 +19,8 @@ function RecipesProvider({ children }) {
   const [receipe, setReceipe] = useState('');
   const [favorite, setFavorite] = useState(undefined);
   const [test, setTest] = useState(undefined);
+  const [finish, setFinish] = useState(undefined);
+  const [newData, setNewData] = useState('');
 
   useEffect(() => {
     async function getCategories() {
@@ -62,6 +64,33 @@ function RecipesProvider({ children }) {
     }
   }, [test]);
 
+  useEffect(() => {
+    if (receipe) {
+      const { idType, image, name, area, category,
+        alcoholic, recipeType, type } = optionsObject[receipe];
+      const returnData = response[recipeType][0];
+      const testAlcoholicOrNot = type === 'comida' ? '' : returnData[alcoholic];
+      const testArea = type === 'comida' ? returnData[area] : '';
+      const getDone = localStorage.getItem('doneRecipes');
+      const doneReceipes = getDone ? JSON.parse(getDone) : [];
+
+      const newDoneRecipes = {
+        id: returnData[idType],
+        type,
+        category: returnData[category],
+        alcoholicOrNot: testAlcoholicOrNot,
+        name: returnData[name],
+        image: returnData[image],
+        area: testArea,
+        doneDate: newData,
+        tags: returnData.strTags === null ? [] : returnData.strTags,
+      };
+      localStorage.setItem(
+        'doneRecipes', JSON.stringify([...doneReceipes, { ...newDoneRecipes }]),
+      );
+    }
+  }, [finish]);
+
   const value = {
     globalData,
     setGlobalData,
@@ -88,6 +117,10 @@ function RecipesProvider({ children }) {
     setFavorite,
     test,
     setTest,
+    finish,
+    setFinish,
+    newData,
+    setNewData,
   };
 
   return (
