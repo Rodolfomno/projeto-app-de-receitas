@@ -5,6 +5,7 @@ const optionsObject = {
   },
   meal: {
     pageTitle: 'Comidas',
+    type: 'comida',
     pagePath: '/comidas',
     API_URL_TYPE: 'meal',
     recipeType: 'meals',
@@ -16,6 +17,7 @@ const optionsObject = {
   },
   drink: {
     pageTitle: 'Bebidas',
+    type: 'bebida',
     pagePath: '/bebidas',
     API_URL_TYPE: 'cocktail',
     recipeType: 'drinks',

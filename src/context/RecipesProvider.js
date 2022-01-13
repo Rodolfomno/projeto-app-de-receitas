@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import fetchAPI from '../utils/fetchAPI';
+import optionsObject from '../utils/optionsObject';
 
 function RecipesProvider({ children }) {
   const [globalData, setGlobalData] = useState([]);
@@ -15,6 +16,9 @@ function RecipesProvider({ children }) {
   const [response, setResponse] = useState({});
   const [allMeasures, setAllMeasures] = useState('');
   const [instruction, setInstruction] = useState('');
+  const [receipe, setReceipe] = useState('');
+  const [favorite, setFavorite] = useState(undefined);
+  const [test, setTest] = useState(undefined);
 
   useEffect(() => {
     async function getCategories() {
@@ -27,6 +31,36 @@ function RecipesProvider({ children }) {
     }
     getCategories();
   }, []);
+
+  useEffect(() => {
+    if (receipe) {
+      const { idType, image, name, area, category,
+        alcoholic, recipeType, type } = optionsObject[receipe];
+      const returnData = response[recipeType][0];
+      const testAlcoholicOrNot = type === 'comida' ? '' : returnData[alcoholic];
+      const testArea = type === 'comida' ? returnData[area] : '';
+      const getFavorite = localStorage.getItem('favoriteRecipes');
+      const favoritesReceipes = getFavorite ? JSON.parse(getFavorite) : [];
+      if (favorite === undefined) {
+        const newRecipes = {
+          id: returnData[idType],
+          type,
+          category: returnData[category],
+          alcoholicOrNot: testAlcoholicOrNot,
+          name: returnData[name],
+          image: returnData[image],
+          area: testArea,
+        };
+        localStorage.setItem(
+          'favoriteRecipes', JSON.stringify([...favoritesReceipes, { ...newRecipes }]),
+        );
+      } else {
+        const local = favoritesReceipes.filter((item) => item.id !== returnData[idType]);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(local));
+      }
+      setFavorite(favorite === undefined ? 'true' : undefined);
+    }
+  }, [test]);
 
   const value = {
     globalData,
@@ -48,6 +82,12 @@ function RecipesProvider({ children }) {
     allMeasures,
     setInstruction,
     instruction,
+    receipe,
+    setReceipe,
+    favorite,
+    setFavorite,
+    test,
+    setTest,
   };
 
   return (
