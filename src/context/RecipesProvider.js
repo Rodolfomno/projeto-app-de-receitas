@@ -83,7 +83,7 @@ function RecipesProvider({ children }) {
         image: returnData[image],
         area: testArea,
         doneDate: newData,
-        tags: returnData.strTags === null ? [] : returnData.strTags,
+        tags: returnData.strTags ? returnData.strTags.split(',') : [],
       };
       localStorage.setItem(
         'doneRecipes', JSON.stringify([...doneReceipes, { ...newDoneRecipes }]),
